@@ -1,0 +1,17 @@
+---
+import type { CollectionEntry } from "astro:content"
+
+interface Props {
+  project: CollectionEntry<"projects">
+}
+
+const { project } = Astro.props
+---
+
+<a
+  href={`/projects/${project.slug}/`}
+  class="flex flex-col gap-6 bg-gray-100 dark:bg-neutral-900 hover:ring hover:ring-gray-200 dark:hover:ring-neutral-800 rounded-md p-4 transition-all"
+>
+  <h5 class="text-sm">{project.data.description}</h5>
+  <h4 class="text-base font-medium">{project.data.title}</h4>
+</a>

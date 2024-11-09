@@ -1,12 +1,12 @@
 ---
 import DefaultLayout from "@/layouts/DefaultLayout.astro"
-import FormattedDate from "@/components/FormattedDate.astro"
 
 import { getCollection } from "astro:content"
 import PageDescription from "@/components/PageDescription.astro"
+import ProjectPreview from "@/components/ProjectPreview.astro"
 
-const posts = (
-  await getCollection("blog", ({ data }) => {
+const projects = (
+  await getCollection("projects", ({ data }) => {
     // draft pages that are available when running the dev server, but not built in production
     return import.meta.env.PROD ? data.draft !== true : true
   })
@@ -14,22 +14,16 @@ const posts = (
 ---
 
 <DefaultLayout>
-  <PageDescription description="A space for storing insights" />
+  <PageDescription
+    description="A space for projects I've built, big and small"
+  />
   <main class="mt-10 mb-20">
     <section>
-      <ul class="space-y-4">
+      <ul class="space-y-4 grid grid-cols-2">
         {
-          posts.map((post) => (
+          projects.map((project) => (
             <li>
-              <a
-                href={`/blog/${post.slug}/`}
-                class="flex justify-between hover:opacity-50"
-              >
-                <h4 class="title">{post.data.title}</h4>
-                <p class="text-muted">
-                  <FormattedDate date={post.data.pubDate} />
-                </p>
-              </a>
+              <ProjectPreview project={project} />
             </li>
           ))
         }

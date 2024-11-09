@@ -1,0 +1,146 @@
+---
+import DefaultLayout from "@/layouts/DefaultLayout.astro"
+import PageDescription from "@/components/PageDescription.astro"
+import { Badge } from "@/components/ui/badge"
+
+const toolsAndTechnologies = [
+  "React",
+  "React Native",
+  "Preact",
+  "Next.js",
+  "Vue",
+  "Nuxt.js",
+  "Javascript",
+  "Typescript",
+  "HTML",
+  "CSS",
+  "SCSS",
+  "LESS",
+  "Styled Components",
+  "Node.js",
+  "Expo",
+  "PHP",
+  "Redux",
+  "Zustand",
+  "MySQL",
+  "PostgreSQL",
+  "Wordpress",
+  "Drupal",
+  "Strapi",
+  "Sanity",
+  "Supabase",
+  "Firebase",
+  "MongoDB",
+  "GraphQL",
+  "Prisma",
+  "Drizzle",
+  "Hono",
+  "TailwindCSS",
+  "Storybook",
+  "Shadcn/UI",
+  "Material UI",
+  "Vuetify",
+  "Bootstrap",
+  "Git",
+  "Gitlab",
+  "Docker",
+  "Figma",
+  "Sketch",
+  "Webflow",
+  "Framer",
+  "Framer Motion",
+  "Jira",
+  "Azure",
+  "Notion",
+  "Trello",
+  "AWS",
+  "VSCode",
+  "Jest",
+  "Playwright",
+  "Cypress",
+  "Vercel",
+  "Netlify",
+  "Auth0",
+  "Clerk",
+  "Auth.js",
+  "MacOS",
+]
+---
+
+<DefaultLayout>
+  <PageDescription
+    description="Crafting Solutions with Experience: My Journey, Tools, and Technologies."
+  />
+  <main class="mt-10 mb-20">
+    <section>
+      <h3 class="font-semibold mb-4">Work</h3>
+      <ul class="space-y-4 text-base">
+        <li class="flex justify-between items-center opacity-55">
+          <div class="flex flex-col">
+            <h4 class="font-medium">RCO Security / Dinbox</h4>
+            <h5 class="text-sm">
+              Senior Frontend Developer & UI/UX Designer Consultant
+            </h5>
+          </div>
+          <span class="text-muted text-sm">2023 - 2024</span>
+        </li>
+        <li class="flex justify-between items-center">
+          <div class="flex flex-col">
+            <h4 class="font-medium">The Stellar Collective</h4>
+            <h5 class="text-sm">Senior Frontend Developer Consultant</h5>
+          </div>
+          <span class="text-muted text-sm">Present</span>
+        </li>
+        <li class="flex justify-between items-center opacity-55">
+          <div class="flex flex-col">
+            <h4 class="font-medium">Pluck</h4>
+            <h5 class="text-sm">Co-founder</h5>
+          </div>
+          <span class="text-muted text-sm">2021 - 2024</span>
+        </li>
+        <li class="flex justify-between items-center opacity-55">
+          <div class="flex flex-col">
+            <h4 class="font-medium">Digitalist Sweden</h4>
+            <h5 class="text-sm">Frontend Lead & Certified Scrum Master</h5>
+          </div>
+          <span class="text-muted text-sm">2018 - 2021</span>
+        </li>
+        <li class="flex justify-between items-center opacity-55">
+          <div class="flex flex-col">
+            <h4 class="font-medium">Wunderkraut</h4>
+            <h5 class="text-sm">Frontend Lead & Certified Scrum Master</h5>
+          </div>
+          <span class="text-muted text-sm">2017 - 2018</span>
+        </li>
+        <li class="flex justify-between items-center opacity-55">
+          <div class="flex flex-col">
+            <h4 class="font-medium">Bricco</h4>
+            <h5 class="text-sm">Fullstack Developer</h5>
+          </div>
+          <span class="text-muted text-sm">2014 - 2017</span>
+        </li>
+        <li class="flex justify-between items-center opacity-55">
+          <div class="flex flex-col">
+            <h4 class="font-medium">River</h4>
+            <h5 class="text-sm">Internship</h5>
+          </div>
+          <span class="text-muted text-sm">2011 - 2012</span>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h3 class="font-semibold mb-4">Tools & Technologies</h3>
+
+      <ul class="flex flex-wrap gap-1">
+        {
+          toolsAndTechnologies.map((data) => (
+            <li>
+              <Badge>{data}</Badge>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</DefaultLayout>

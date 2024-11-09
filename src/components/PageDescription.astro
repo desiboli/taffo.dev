@@ -1,0 +1,14 @@
+---
+interface Props {
+  description: string
+}
+
+const { description } = Astro.props
+---
+
+<div class="flex justify-between items-center text-base text-muted">
+  <h3>
+    {description}
+  </h3>
+  <slot />
+</div>
