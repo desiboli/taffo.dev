@@ -56,6 +56,10 @@ import "@fontsource/inter/900.css"
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
+<!-- Vercel Speed Insights -->
+<SpeedInsights />
+
+<!-- Theme -->
 <script is:inline define:vars={{ STORAGE_THEME_KEY, THEME_MAP }}>
   function setDarkMode(document) {
     const userTheme = localStorage.getItem(STORAGE_THEME_KEY)
@@ -75,5 +79,3 @@ import "@fontsource/inter/900.css"
     setDarkMode(ev.newDocument)
   })
 </script>
-
-<SpeedInsights />
