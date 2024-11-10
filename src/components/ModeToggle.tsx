@@ -1,38 +1,35 @@
 import * as React from "react"
-import { Moon, Sun, Monitor } from "lucide-react"
+import { Moon, Sun, Monitor, DotIcon } from "lucide-react"
+import { useStore } from "@nanostores/react"
+import { THEME_MAP, type ThemeKey, themeStore } from "@/stores/theme"
+import { cn } from "@/lib/utils"
 
 export function ModeToggle() {
-  const [theme, setThemeState] = React.useState<
-    "theme-light" | "dark" | "system"
-  >("theme-light")
-
-  React.useEffect(() => {
-    const isDarkMode = document.documentElement.classList.contains("dark")
-    setThemeState(isDarkMode ? "dark" : "theme-light")
-  }, [])
-
-  React.useEffect(() => {
-    const isDark =
-      theme === "dark" ||
-      (theme === "system" &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    document.documentElement.classList[isDark ? "add" : "remove"]("dark")
-  }, [theme])
+  const theme = useStore(themeStore)
 
   return (
-    <div className="rounded-sm overflow-hidden inline-flex bg-gray-100 dark:bg-neutral-900">
-      <button onClick={() => setThemeState("system")} className="p-2">
-        <Monitor className="size-3" />
-        <span className="sr-only">Enable system theme</span>
-      </button>
-      <button onClick={() => setThemeState("dark")} className="p-2">
-        <Moon className="size-3" />
-        <span className="sr-only">Enable dark theme</span>
-      </button>
-      <button onClick={() => setThemeState("theme-light")} className="p-2">
-        <Sun className="size-3" />
-        <span className="sr-only">Enable light theme</span>
-      </button>
+    <div className="rounded-sm overflow-hidden flex gap-2 bg-gray-100 dark:bg-neutral-900">
+      {Object.keys(THEME_MAP)
+        .map((key) => {
+          const themeKey = key as ThemeKey
+          const isActive = theme === THEME_MAP[themeKey]
+
+          return (
+            <button
+              key={key}
+              className={cn("justify-between capitalize p-2", {
+                "bg-gray-200 dark:bg-neutral-800": isActive,
+              })}
+              onClick={() => themeStore.set(THEME_MAP[themeKey])}
+            >
+              {themeKey === "system" && <Monitor className="size-3" />}
+              {themeKey === "dark" && <Moon className="size-3" />}
+              {themeKey === "light" && <Sun className="size-3" />}
+              <span className="sr-only">Enable {themeKey} Theme</span>
+            </button>
+          )
+        })
+        .reverse()}
     </div>
   )
 }

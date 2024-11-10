@@ -13,6 +13,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
 const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props
 
+import { STORAGE_THEME_KEY, THEME_MAP } from "@/stores/theme"
+
 import "@fontsource/inter/100.css"
 import "@fontsource/inter/200.css"
 import "@fontsource/inter/300.css"
@@ -52,62 +54,22 @@ import "@fontsource/inter/900.css"
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
-<script is:inline>
-  const getThemePreference = () => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme")
-    }
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light"
-  }
-  const isDark = getThemePreference() === "dark"
-  document.documentElement.classList[isDark ? "add" : "remove"]("dark")
-
-  if (typeof localStorage !== "undefined") {
-    const observer = new MutationObserver(() => {
-      const isDark = document.documentElement.classList.contains("dark")
-      localStorage.setItem("theme", isDark ? "dark" : "light")
-    })
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    })
-  }
-</script>
-
-<!-- <script is:inline>
+<script is:inline define:vars={{ STORAGE_THEME_KEY, THEME_MAP }}>
   function setDarkMode(document) {
-    const getThemePreference = () => {
-      if (
-        typeof localStorage !== 'undefined' &&
-        localStorage.getItem('theme')
-      ) {
-        return localStorage.getItem('theme');
-      }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'theme-light';
-    };
-    const isDark = getThemePreference() === 'dark';
-    document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+    const userTheme = localStorage.getItem(STORAGE_THEME_KEY)
 
-    if (typeof localStorage !== 'undefined') {
-      const observer = new MutationObserver(() => {
-        const isDark = document.documentElement.classList.contains('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'theme-light');
-      });
-      observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class'],
-      });
+    if (
+      userTheme === THEME_MAP.dark ||
+      (!userTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.add("dark")
     }
   }
 
-  setDarkMode(document);
+  setDarkMode(document)
 
-  document.addEventListener('astro:before-swap', (ev) => {
+  document.addEventListener("astro:before-swap", (ev) => {
     // Pass the incoming document to set the theme on it
-    setDarkMode(ev.newDocument);
-  });
-</script> -->
+    setDarkMode(ev.newDocument)
+  })
+</script>
