@@ -16,6 +16,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props
 
 import { STORAGE_THEME_KEY, THEME_MAP } from "@/stores/theme"
+import { ClientRouter } from "astro:transitions"
 
 import "@fontsource/inter/100.css"
 import "@fontsource/inter/200.css"
@@ -58,6 +59,9 @@ import "@fontsource/inter/900.css"
 
 <!-- Vercel Speed Insights -->
 <SpeedInsights />
+
+<!-- View Transition -->
+<ClientRouter />
 
 <!-- Theme -->
 <script is:inline define:vars={{ STORAGE_THEME_KEY, THEME_MAP }}>
