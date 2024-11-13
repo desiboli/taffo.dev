@@ -1,0 +1,49 @@
+---
+import { cn } from "@/lib/utils"
+
+interface WorkplaceProps {
+  company: string
+  role: string
+  date: string
+  current?: boolean
+}
+
+interface Props extends WorkplaceProps {
+  assignments: WorkplaceProps[] | undefined
+}
+
+const { company, role, date, assignments, current } = Astro.props
+---
+
+<li class="flex flex-col gap-4 list-outside [&_ul]:list-[revert]">
+  <div class="flex justify-between items-center">
+    <div class="flex flex-col">
+      <h4 class="font-medium">{company}</h4>
+      <h5 class="text-sm">
+        {role}
+      </h5>
+    </div>
+    <span
+      class={cn("text-muted text-sm", { "text-foreground uppercase": current })}
+      >{date}</span
+    >
+  </div>
+
+  {
+    assignments && assignments.length > 0 && (
+      <ul class="ml-10 gap-4 flex flex-col">
+        {assignments.map((data) => (
+          <li>
+            <div class="flex justify-between items-center">
+              <div class="flex flex-col">
+                <h4 class="font-medium">{data.company}</h4>
+                <h5 class="text-sm">{data.role}</h5>
+              </div>
+              <span class="text-muted text-sm">{data.date}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</li>
