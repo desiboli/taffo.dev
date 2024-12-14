@@ -1,16 +1,20 @@
 export const workplaces = [
   {
+    company: "Sveriges Television (SVT)",
+    role: "Senior Frontend Developer",
+    date: "2024 - Present",
+  },
+  {
     company: "The Stellar Collective",
     role: "Senior Frontend Developer Consultant",
     date: "Present",
-    assignments: [
-      {
-        company: "RCO Security / Dinbox",
-        role: "Senior Frontend Developer & UI/UX Designer",
-        date: "2023 - 2024",
-      },
-    ],
+    assignments: [],
     current: true,
+  },
+  {
+    company: "RCO Security / Dinbox",
+    role: "Senior Frontend Developer Lead & UI/UX Designer",
+    date: "2023 - 2024",
   },
   {
     company: "Pluck",
