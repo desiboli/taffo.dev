@@ -6,8 +6,6 @@ import {
   TwitterLogoIcon,
 } from "@radix-ui/react-icons"
 import { ModeToggle } from "@/components/ModeToggle"
-
-const today = new Date()
 ---
 
 <footer
@@ -57,6 +55,6 @@ const today = new Date()
     <ModeToggle client:only="react" />
   </div>
   <span class="text-center text-muted"
-    >&copy; {today.getFullYear()} Mustafa Alshammaa. All rights reserved.</span
+    >&copy; {new Date().getFullYear()} Mustafa Alshammaa. All rights reserved.</span
   >
 </footer>
