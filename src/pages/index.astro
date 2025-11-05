@@ -44,12 +44,22 @@ import { ModeToggle } from "@/components/mode-toggle"
   <body>
     <header class="max-w-5xl mx-auto sticky top-10 z-10 px-4">
       <div
-        class="flex items-center justify-between backdrop-blur supports-backdrop-filter:bg-secondary/60 rounded-2xl p-4"
+        class="flex items-center justify-between backdrop-blur supports-backdrop-filter:bg-secondary/5 rounded-2xl p-4"
       >
-        <h1 class="text-2xl font-bold">Taffo Dev</h1>
+        <h1 class="text-2xl font-bold">
+          <span class="relative flex size-3">
+            <span
+              class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
+            ></span>
+            <span
+              class="relative inline-flex size-3 rounded-full bg-emerald-500"
+            ></span>
+          </span>
+        </h1>
+        <ModeToggle client:load />
       </div>
     </header>
-    <div class="max-w-5xl mx-auto mt-20 px-4">
+    <div class="max-w-5xl mx-auto mt-20 px-4 space-y-10">
       <div
         class="min-h-fit w-full bg-background rounded-2xl overflow-hidden relative p-4"
       >
@@ -105,13 +115,29 @@ import { ModeToggle } from "@/components/mode-toggle"
           </div>
         </div>
       </div>
+
+      <div class="space-y-4">
+        <div class="float-left mr-6 mb-4 relative size-32 sm:size-40 shrink-0">
+          <img src="/m.jpeg" class="rounded-full object-cover w-full h-full" />
+          <div
+            class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-black/10 ring-inset dark:ring-white/10"
+          >
+          </div>
+        </div>
+
+        <h1 class="text-3xl font-bold leading-relaxed text-justify">
+          Hi, I'm Mustafa a Senior Frontend Developer with over a decade of
+          experience building fast, responsive, and reliable web interfaces. I
+          have a solid foundation in frontend development, with a touch of
+          design expertise and a keen eye for UX/UI to ensure every detail feels
+          just right. When I'm not coding, I'm usually exploring the latest in
+          web tech or enjoying time with family — but always ready for the next
+          big challenge!
+        </h1>
+      </div>
     </div>
 
     <div class="grid place-items-center h-screen content-center">
-      <div>
-        Hero
-        <ModeToggle client:load />
-      </div>
       <!-- <Button>Shadcn ui Button</Button>
       <a href="/markdown-page" class="p-4 underline"
         >Markdown is also supported...</a
