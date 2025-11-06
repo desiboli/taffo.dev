@@ -6,6 +6,19 @@ import { ModeToggle } from "@/components/mode-toggle"
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/basics/astro-components/
+
+import "@fontsource/poppins/100.css"
+import "@fontsource/poppins/200.css"
+import "@fontsource/poppins/300.css"
+import "@fontsource/poppins/400.css"
+import "@fontsource/poppins/500.css"
+import "@fontsource/poppins/600.css"
+import "@fontsource/poppins/700.css"
+import "@fontsource/poppins/800.css"
+import "@fontsource/poppins/900.css"
+import { Image } from "astro:assets"
+import { ArrowUpRightIcon } from "lucide-react"
+import TailwindIndicator from "@/components/tailwind-indicator.astro"
 ---
 
 <script is:inline>
@@ -59,7 +72,7 @@ import { ModeToggle } from "@/components/mode-toggle"
         <ModeToggle client:load />
       </div>
     </header>
-    <div class="max-w-5xl mx-auto mt-20 px-4 space-y-10">
+    <div class="max-w-5xl mx-auto mt-20 px-4 space-y-4">
       <div
         class="min-h-fit w-full bg-background rounded-2xl overflow-hidden relative p-4"
       >
@@ -116,24 +129,117 @@ import { ModeToggle } from "@/components/mode-toggle"
         </div>
       </div>
 
-      <div class="space-y-4">
-        <div class="float-left mr-6 mb-4 relative size-32 sm:size-40 shrink-0">
-          <img src="/m.jpeg" class="rounded-full object-cover w-full h-full" />
-          <div
-            class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-black/10 ring-inset dark:ring-white/10"
-          >
-          </div>
+      <div class="lg:float-left mr-6 mb-4 relative size-32 sm:size-40 shrink-0">
+        <img src="/m.jpeg" class="rounded-full object-cover w-full h-full" />
+        <div
+          class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-black/10 ring-inset dark:ring-white/10"
+        >
         </div>
+      </div>
 
-        <h1 class="text-3xl font-bold leading-relaxed text-justify">
-          Hi, I'm Mustafa a Senior Frontend Developer with over a decade of
-          experience building fast, responsive, and reliable web interfaces. I
-          have a solid foundation in frontend development, with a touch of
-          design expertise and a keen eye for UX/UI to ensure every detail feels
-          just right. When I'm not coding, I'm usually exploring the latest in
-          web tech or enjoying time with family — but always ready for the next
-          big challenge!
-        </h1>
+      <h1 class="text-xl md:text-3xl font-bold leading-relaxed lg:text-justify">
+        Hi, I'm Mustafa a Senior Frontend Developer with over a decade of
+        experience building fast, responsive, and reliable web interfaces. I
+        have a solid foundation in frontend development, with a touch of design
+        expertise and a keen eye for UX/UI to ensure every detail feels just
+        right. When I'm not coding, I'm usually exploring the latest in web tech
+        or enjoying time with family — but always ready for the next big
+        challenge!
+      </h1>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a
+          href="https://www.linkedin.com/in/mustafa-alshammaa/"
+          target="_blank"
+          class="flex items-center gap-4 py-4 group hover:bg-secondary/15 transition-colors duration-300 rounded-lg p-4 border border-secondary"
+        >
+          <Image
+            src="https://cdn.brandfetch.io/idJFz6sAsl/w/400/h/400/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1748592533197"
+            alt="LinkedIn"
+            width={48}
+            height={48}
+          />
+
+          <div class="flex flex-col">
+            <span class="font-medium">LinkedIn</span>
+            <span class="text-xs text-muted-foreground">mustafa-alshammaa</span>
+          </div>
+          <div class="flex-1"></div>
+          <ArrowUpRightIcon
+            className="size-4 group-hover:rotate-45 transition-transform duration-300"
+          />
+        </a>
+
+        <a
+          href="https://github.com/desiboli"
+          target="_blank"
+          class="flex items-center gap-4 py-4 group hover:bg-secondary/15 transition-colors duration-300 rounded-lg p-4 border border-secondary"
+        >
+          <Image
+            src="https://cdn.brandfetch.io/idZAyF9rlg/theme/dark/symbol.svg?c=1bxid64Mup7aczewSAYMX&t=1719469980826"
+            class="dark:hidden"
+            alt="GitHub"
+            width={48}
+            height={48}
+          />
+          <Image
+            src="https://cdn.brandfetch.io/idZAyF9rlg/theme/light/symbol.svg?c=1bxid64Mup7aczewSAYMX&t=1719469980826"
+            class="dark:block hidden"
+            alt="GitHub"
+            width={48}
+            height={48}
+          />
+
+          <div class="flex flex-col">
+            <span class="font-medium">GitHub</span>
+            <span class="text-xs text-muted-foreground">desiboli</span>
+          </div>
+          <div class="flex-1"></div>
+          <ArrowUpRightIcon
+            className="size-4 group-hover:rotate-45 transition-transform duration-300"
+          />
+        </a>
+        <a
+          href="https://app.daily.dev/desiboli"
+          target="_blank"
+          class="flex items-center gap-4 py-4 group hover:bg-secondary/15 transition-colors duration-300 rounded-lg p-4 border border-secondary"
+        >
+          <Image
+            src="https://cdn.brandfetch.io/idDVDWwMN7/w/256/h/256/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1757054862144"
+            alt="Daily.dev"
+            width={48}
+            height={48}
+          />
+
+          <div class="flex flex-col">
+            <span class="font-medium">Daily.dev</span>
+            <span class="text-xs text-muted-foreground">desiboli</span>
+          </div>
+          <div class="flex-1"></div>
+          <ArrowUpRightIcon
+            className="size-4 group-hover:rotate-45 transition-transform duration-300"
+          />
+        </a>
+        <a
+          href="https://x.com/adamalshammaa"
+          target="_blank"
+          class="flex items-center gap-4 py-4 group hover:bg-secondary/15 transition-colors duration-300 rounded-lg p-4 border border-secondary"
+        >
+          <Image
+            src="https://cdn.brandfetch.io/idS5WhqBbM/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1692089091886"
+            alt="X"
+            width={48}
+            height={48}
+          />
+          <div class="flex flex-col">
+            <span class="font-medium">X</span>
+            <span class="text-xs text-muted-foreground">@adamalshammaa</span>
+          </div>
+          <div class="flex-1"></div>
+          <ArrowUpRightIcon
+            className="size-4 group-hover:rotate-45 transition-transform duration-300"
+          />
+        </a>
       </div>
     </div>
 
@@ -143,5 +249,6 @@ import { ModeToggle } from "@/components/mode-toggle"
         >Markdown is also supported...</a
       > -->
     </div>
+    <TailwindIndicator />
   </body>
 </html>
