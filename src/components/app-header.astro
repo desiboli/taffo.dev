@@ -1,0 +1,20 @@
+---
+import { ModeToggle } from "@/components/mode-toggle"
+---
+
+<header class="max-w-5xl mx-auto sticky top-10 z-10 px-4">
+  <div
+    class="flex items-center justify-between backdrop-blur supports-backdrop-filter:bg-secondary/5 rounded-2xl p-4"
+  >
+    <h1 class="text-2xl font-bold">
+      <span class="relative flex size-3">
+        <span
+          class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
+        ></span>
+        <span class="relative inline-flex size-3 rounded-full bg-emerald-500"
+        ></span>
+      </span>
+    </h1>
+    <ModeToggle client:load />
+  </div>
+</header>

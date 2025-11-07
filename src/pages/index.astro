@@ -1,258 +1,44 @@
 ---
-import { Button } from "@/components/ui/button"
-import "../styles/global.css"
-import { ModeToggle } from "@/components/mode-toggle"
-// Component Imports
-
 // Full Astro Component Syntax:
 // https://docs.astro.build/basics/astro-components/
-
-import "@fontsource/poppins/100.css"
-import "@fontsource/poppins/200.css"
-import "@fontsource/poppins/300.css"
-import "@fontsource/poppins/400.css"
-import "@fontsource/poppins/500.css"
-import "@fontsource/poppins/600.css"
-import "@fontsource/poppins/700.css"
-import "@fontsource/poppins/800.css"
-import "@fontsource/poppins/900.css"
-import { Image } from "astro:assets"
-import { ArrowUpRightIcon } from "lucide-react"
-import TailwindIndicator from "@/components/tailwind-indicator.astro"
+import AboutIntro from "@/components/about-intro.astro"
+import AppHeader from "@/components/app-header.astro"
+import HeroBranding from "@/components/hero-branding.astro"
+import SocialLinkCard from "@/components/social-link-card.astro"
+import DefaultLayout from "@/layouts/default-layout.astro"
 ---
 
-<script is:inline>
-  const getThemePreference = () => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme")
-    }
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light"
-  }
-  const isDark = getThemePreference() === "dark"
-  document.documentElement.classList[isDark ? "add" : "remove"]("dark")
+<DefaultLayout>
+  <AppHeader />
+  <div class="max-w-5xl mx-auto mt-20 px-4 space-y-4">
+    <HeroBranding />
+    <AboutIntro />
 
-  if (typeof localStorage !== "undefined") {
-    const observer = new MutationObserver(() => {
-      const isDark = document.documentElement.classList.contains("dark")
-      localStorage.setItem("theme", isDark ? "dark" : "light")
-    })
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    })
-  }
-</script>
-
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Mustafa Alshammaa's Portfolio</title>
-    <meta
-      name="description"
-      content="Welcome to my space! – I build high quality and impactful digital experiences"
-    />
-  </head>
-
-  <body>
-    <header class="max-w-5xl mx-auto sticky top-10 z-10 px-4">
-      <div
-        class="flex items-center justify-between backdrop-blur supports-backdrop-filter:bg-secondary/5 rounded-2xl p-4"
-      >
-        <h1 class="text-2xl font-bold">
-          <span class="relative flex size-3">
-            <span
-              class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
-            ></span>
-            <span
-              class="relative inline-flex size-3 rounded-full bg-emerald-500"
-            ></span>
-          </span>
-        </h1>
-        <ModeToggle client:load />
-      </div>
-    </header>
-    <div class="max-w-5xl mx-auto mt-20 px-4 space-y-4">
-      <div
-        class="min-h-fit w-full bg-background rounded-2xl overflow-hidden relative p-4"
-      >
-        {/* Diagonal Stripes Background */}
-        <div
-          class="absolute inset-0 z-0"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(45deg, transparent, transparent 2px, var(--color-secondary) 2px, var(--color-secondary) 4px)",
-          }}
-        >
-        </div>
-        <div class="flex items-center justify-center py-20 gap-2 relative">
-          <div
-            class="absolute inset-0 dark:bg-[radial-gradient(var(--edge)_1px,transparent_2px_50%)] bg-[radial-gradient(var(--edge)_1px,transparent_2px_50%)] bg-size-[8px_8px] z-0"
-          >
-          </div>
-          <div
-            class="h-40 w-20 bg-black dark:bg-white rounded-full z-0 relative overflow-hidden"
-          >
-            <div
-              class="absolute inset-0 z-0"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(135deg, transparent, transparent 2px, var(--color-secondary) 2px, var(--color-secondary) 4px)",
-              }}
-            >
-            </div>
-          </div>
-          <div
-            class="h-40 w-20 bg-black dark:bg-white rounded-full z-0 relative overflow-hidden"
-          >
-            <div
-              class="absolute inset-0 z-0"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(135deg, transparent, transparent 2px, var(--color-secondary) 2px, var(--color-secondary) 4px)",
-              }}
-            >
-            </div>
-          </div>
-          <div
-            class="h-40 w-20 dark:bg-zinc-700 bg-zinc-300 rounded-[0_5rem_1rem_2rem] z-0 relative overflow-hidden"
-          >
-            <div
-              class="absolute inset-0 z-0"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(135deg, transparent, transparent 2px, var(--color-secondary) 2px, var(--color-secondary) 4px)",
-              }}
-            >
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lg:float-left mr-6 mb-4 relative size-32 sm:size-40 shrink-0">
-        <img src="/m.jpeg" class="rounded-full object-cover w-full h-full" />
-        <div
-          class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-black/10 ring-inset dark:ring-white/10"
-        >
-        </div>
-      </div>
-
-      <h1 class="text-xl md:text-3xl font-bold leading-relaxed lg:text-justify">
-        Hi, I'm Mustafa a Senior Frontend Developer with over a decade of
-        experience building fast, responsive, and reliable web interfaces. I
-        have a solid foundation in frontend development, with a touch of design
-        expertise and a keen eye for UX/UI to ensure every detail feels just
-        right. When I'm not coding, I'm usually exploring the latest in web tech
-        or enjoying time with family — but always ready for the next big
-        challenge!
-      </h1>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <a
-          href="https://www.linkedin.com/in/mustafa-alshammaa/"
-          target="_blank"
-          class="flex items-center gap-4 py-4 group hover:bg-secondary/15 transition-colors duration-300 rounded-lg p-4 border border-secondary"
-        >
-          <Image
-            src="https://cdn.brandfetch.io/idJFz6sAsl/w/400/h/400/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1748592533197"
-            alt="LinkedIn"
-            width={48}
-            height={48}
-          />
-
-          <div class="flex flex-col">
-            <span class="font-medium">LinkedIn</span>
-            <span class="text-xs text-muted-foreground">mustafa-alshammaa</span>
-          </div>
-          <div class="flex-1"></div>
-          <ArrowUpRightIcon
-            className="size-4 group-hover:rotate-45 transition-transform duration-300"
-          />
-        </a>
-
-        <a
-          href="https://github.com/desiboli"
-          target="_blank"
-          class="flex items-center gap-4 py-4 group hover:bg-secondary/15 transition-colors duration-300 rounded-lg p-4 border border-secondary"
-        >
-          <Image
-            src="https://cdn.brandfetch.io/idZAyF9rlg/theme/dark/symbol.svg?c=1bxid64Mup7aczewSAYMX&t=1719469980826"
-            class="dark:hidden"
-            alt="GitHub"
-            width={48}
-            height={48}
-          />
-          <Image
-            src="https://cdn.brandfetch.io/idZAyF9rlg/theme/light/symbol.svg?c=1bxid64Mup7aczewSAYMX&t=1719469980826"
-            class="dark:block hidden"
-            alt="GitHub"
-            width={48}
-            height={48}
-          />
-
-          <div class="flex flex-col">
-            <span class="font-medium">GitHub</span>
-            <span class="text-xs text-muted-foreground">desiboli</span>
-          </div>
-          <div class="flex-1"></div>
-          <ArrowUpRightIcon
-            className="size-4 group-hover:rotate-45 transition-transform duration-300"
-          />
-        </a>
-        <a
-          href="https://app.daily.dev/desiboli"
-          target="_blank"
-          class="flex items-center gap-4 py-4 group hover:bg-secondary/15 transition-colors duration-300 rounded-lg p-4 border border-secondary"
-        >
-          <Image
-            src="https://cdn.brandfetch.io/idDVDWwMN7/w/256/h/256/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1757054862144"
-            alt="Daily.dev"
-            width={48}
-            height={48}
-          />
-
-          <div class="flex flex-col">
-            <span class="font-medium">Daily.dev</span>
-            <span class="text-xs text-muted-foreground">desiboli</span>
-          </div>
-          <div class="flex-1"></div>
-          <ArrowUpRightIcon
-            className="size-4 group-hover:rotate-45 transition-transform duration-300"
-          />
-        </a>
-        <a
-          href="https://x.com/adamalshammaa"
-          target="_blank"
-          class="flex items-center gap-4 py-4 group hover:bg-secondary/15 transition-colors duration-300 rounded-lg p-4 border border-secondary"
-        >
-          <Image
-            src="https://cdn.brandfetch.io/idS5WhqBbM/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1692089091886"
-            alt="X"
-            width={48}
-            height={48}
-          />
-          <div class="flex flex-col">
-            <span class="font-medium">X</span>
-            <span class="text-xs text-muted-foreground">@adamalshammaa</span>
-          </div>
-          <div class="flex-1"></div>
-          <ArrowUpRightIcon
-            className="size-4 group-hover:rotate-45 transition-transform duration-300"
-          />
-        </a>
-      </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <SocialLinkCard
+        href="https://www.linkedin.com/in/mustafa-alshammaa/"
+        logo="https://cdn.brandfetch.io/idJFz6sAsl/w/400/h/400/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1748592533197"
+        title="LinkedIn"
+        username="mustafa-alshammaa"
+      />
+      <SocialLinkCard
+        href="https://github.com/desiboli"
+        logo="https://cdn.brandfetch.io/idZAyF9rlg/w/400/h/400/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1719469970995"
+        title="GitHub"
+        username="desiboli"
+      />
+      <SocialLinkCard
+        href="https://app.daily.dev/desiboli"
+        logo="https://cdn.brandfetch.io/idDVDWwMN7/w/256/h/256/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1757054862144"
+        title="Daily.dev"
+        username="desiboli"
+      />
+      <SocialLinkCard
+        href="https://x.com/adamalshammaa"
+        logo="https://cdn.brandfetch.io/idS5WhqBbM/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1692089091886"
+        title="X"
+        username="adamalshammaa"
+      />
     </div>
-
-    <div class="grid place-items-center h-screen content-center">
-      <!-- <Button>Shadcn ui Button</Button>
-      <a href="/markdown-page" class="p-4 underline"
-        >Markdown is also supported...</a
-      > -->
-    </div>
-    <TailwindIndicator />
-  </body>
-</html>
+  </div>
+</DefaultLayout>

@@ -1,0 +1,26 @@
+---
+import BaseHead from "@/components/base-head.astro"
+import "../styles/global.css"
+import TailwindIndicator from "@/components/tailwind-indicator.astro"
+import { SITE_DESCRIPTION, SITE_TITLE } from "@/consts"
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <!--     
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Mustafa Alshammaa's Portfolio</title>
+    <meta
+      name="description"
+      content="Welcome to my space! – I build high quality and impactful digital experiences"
+    /> -->
+  </head>
+  <body>
+    <slot />
+    <TailwindIndicator />
+  </body>
+</html>
