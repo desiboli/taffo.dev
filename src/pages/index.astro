@@ -5,40 +5,47 @@ import AboutIntro from "@/components/about-intro.astro"
 import AppHeader from "@/components/app-header.astro"
 import HeroBranding from "@/components/hero-branding.astro"
 import SocialLinkCard from "@/components/social-link-card.astro"
+import { TestimonialCarousel } from "@/components/testimonial-carousel"
 import DefaultLayout from "@/layouts/default-layout.astro"
 ---
 
 <DefaultLayout>
   <AppHeader />
-  <main class="max-w-5xl mx-auto my-20 px-4 space-y-4">
-    <HeroBranding />
-    <AboutIntro />
+  <main class="mt-10 mb-20">
+    <div class="max-w-5xl mx-auto space-y-4 px-4">
+      <HeroBranding />
+      <AboutIntro />
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <SocialLinkCard
-        href="https://www.linkedin.com/in/mustafa-alshammaa/"
-        logo="https://cdn.brandfetch.io/idJFz6sAsl/w/400/h/400/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1748592533197"
-        title="LinkedIn"
-        username="mustafa-alshammaa"
-      />
-      <SocialLinkCard
-        href="https://github.com/desiboli"
-        logo="https://cdn.brandfetch.io/idZAyF9rlg/w/400/h/400/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1719469970995"
-        title="GitHub"
-        username="desiboli"
-      />
-      <SocialLinkCard
-        href="https://app.daily.dev/desiboli"
-        logo="https://cdn.brandfetch.io/idDVDWwMN7/w/256/h/256/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1757054862144"
-        title="Daily.dev"
-        username="desiboli"
-      />
-      <SocialLinkCard
-        href="https://x.com/adamalshammaa"
-        logo="https://cdn.brandfetch.io/idS5WhqBbM/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1692089091886"
-        title="X"
-        username="adamalshammaa"
-      />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <SocialLinkCard
+          href="https://www.linkedin.com/in/mustafa-alshammaa/"
+          logo="https://cdn.brandfetch.io/idJFz6sAsl/w/400/h/400/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1748592533197"
+          title="LinkedIn"
+          username="mustafa-alshammaa"
+        />
+        <SocialLinkCard
+          href="https://github.com/desiboli"
+          logo="https://cdn.brandfetch.io/idZAyF9rlg/w/400/h/400/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1719469970995"
+          title="GitHub"
+          username="desiboli"
+        />
+        <SocialLinkCard
+          href="https://app.daily.dev/desiboli"
+          logo="https://cdn.brandfetch.io/idDVDWwMN7/w/256/h/256/theme/dark/icon.png?c=1bxid64Mup7aczewSAYMX&t=1757054862144"
+          title="Daily.dev"
+          username="desiboli"
+        />
+        <SocialLinkCard
+          href="https://x.com/adamalshammaa"
+          logo="https://cdn.brandfetch.io/idS5WhqBbM/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1692089091886"
+          title="X"
+          username="adamalshammaa"
+        />
+      </div>
+    </div>
+
+    <div class="w-full mx-auto mt-20">
+      <TestimonialCarousel client:load />
     </div>
   </main>
 </DefaultLayout>
