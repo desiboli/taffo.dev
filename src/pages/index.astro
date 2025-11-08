@@ -9,6 +9,21 @@ import { TestimonialCarousel } from "@/components/testimonial-carousel"
 import DefaultLayout from "@/layouts/default-layout.astro"
 ---
 
+<script is:inline>
+  const wcb = document.getElementById("wcb")
+  const updateTheme = () =>
+    wcb?.classList.toggle(
+      "wcb-d",
+      document.documentElement.classList.contains("dark")
+    )
+
+  document.addEventListener("DOMContentLoaded", updateTheme)
+  new MutationObserver(updateTheme).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  })
+</script>
+
 <DefaultLayout>
   <AppHeader />
   <main class="mt-10 mb-20">
@@ -55,6 +70,7 @@ import DefaultLayout from "@/layouts/default-layout.astro"
   </main>
   <footer class="my-20">
     <div class="max-w-5xl mx-auto px-4">
+      <div id="wcb" class="carbonbadge"></div>
       <p class="text-center text-sm text-muted-foreground">
         &copy; {new Date().getFullYear()} Mustafa Alshammaa. All rights reserved.
       </p>
