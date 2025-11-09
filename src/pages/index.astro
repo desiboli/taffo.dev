@@ -10,18 +10,27 @@ import DefaultLayout from "@/layouts/default-layout.astro"
 ---
 
 <script is:inline>
-  const wcb = document.getElementById("wcb")
-  const updateTheme = () =>
+  const updateTheme = () => {
+    const wcb = document.getElementById("wcb")
     wcb?.classList.toggle(
       "wcb-d",
       document.documentElement.classList.contains("dark")
     )
+  }
 
-  document.addEventListener("DOMContentLoaded", updateTheme)
-  new MutationObserver(updateTheme).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  })
+  const init = () => {
+    if (document.getElementById("wcb")) {
+      updateTheme()
+      new MutationObserver(updateTheme).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      })
+    } else {
+      setTimeout(init, 100)
+    }
+  }
+
+  init()
 </script>
 
 <DefaultLayout>
