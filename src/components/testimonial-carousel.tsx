@@ -59,7 +59,7 @@ export function TestimonialCarousel() {
         {TESTIMONIALS.map((testimonial) => (
           <CarouselItem
             key={testimonial.id}
-            className="md:basis-1/2 lg:basis-1/3"
+            className="basis-full md:basis-1/2 lg:basis-1/3"
           >
             <div className="p-1">
               <div className="flex flex-col gap-2">
