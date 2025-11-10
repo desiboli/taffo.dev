@@ -1,6 +1,5 @@
 import AutoScroll from "embla-carousel-auto-scroll"
 import briccoLogo from "@/assets/clients/bricco.svg"
-import dinboxLogo from "@/assets/clients/dinbox.jpeg"
 import ingmarBergmanLogo from "@/assets/clients/ingmarbergman.svg"
 import lakareUtanGranserLogo from "@/assets/clients/lakareutangranser.svg"
 import rcoLogo from "@/assets/clients/rco.svg"
@@ -8,7 +7,6 @@ import stLogo from "@/assets/clients/st.svg"
 import stadsmissionLogo from "@/assets/clients/stadsmission.svg"
 import svtLogo from "@/assets/clients/svt.svg"
 import unionenLogo from "@/assets/clients/unionen.svg"
-
 import {
   Carousel,
   CarouselContent,
@@ -24,7 +22,7 @@ const CLIENTS = [
   {
     id: 2,
     name: "Dinbox",
-    logo: dinboxLogo,
+    logo: { src: "/dinbox.jpeg" },
   },
   {
     id: 3,
