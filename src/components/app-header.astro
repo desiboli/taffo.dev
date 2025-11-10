@@ -6,7 +6,7 @@ import { ModeToggle } from "@/components/mode-toggle"
   <div
     class="flex items-center justify-between backdrop-blur supports-backdrop-filter:bg-secondary/5 rounded-2xl p-4"
   >
-    <h1 class="text-xs flex items-center gap-2">
+    <div class="text-xs flex items-center gap-2">
       <span class="relative flex size-3">
         <span
           class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
@@ -15,7 +15,7 @@ import { ModeToggle } from "@/components/mode-toggle"
         ></span>
       </span>
       Available for work
-    </h1>
+    </div>
     <ModeToggle client:load />
   </div>
 </header>
