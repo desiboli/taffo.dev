@@ -1,5 +1,5 @@
 ---
-
+import { Image } from "astro:assets"
 ---
 
 <div
@@ -58,9 +58,11 @@
 
     <div class="absolute left-0 bottom-0">
       <div class="relative size-20 lg:size-32 shrink-0">
-        <img
+        <Image
           alt="Mustafa Alshammaa"
           src="/m.webp"
+          width={128}
+          height={128}
           class="rounded-full object-cover w-full h-full"
         />
         <div
