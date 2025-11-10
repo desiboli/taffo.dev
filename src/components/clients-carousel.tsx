@@ -22,7 +22,7 @@ const CLIENTS = [
   {
     id: 2,
     name: "Dinbox",
-    logo: { src: "/dinbox.jpeg" },
+    logo: { src: "/dinbox.webp" },
   },
   {
     id: 3,
