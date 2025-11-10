@@ -12,6 +12,7 @@ import SVTLogo from "@/assets/svt.svg"
 // https://docs.astro.build/basics/astro-components/
 import AboutIntro from "@/components/about-intro.astro"
 import AppHeader from "@/components/app-header.astro"
+import { ClientsCarousel } from "@/components/clients-carousel"
 import HeroBranding from "@/components/hero-branding.astro"
 import SocialLinkCard from "@/components/social-link-card.astro"
 import { TestimonialCarousel } from "@/components/testimonial-carousel"
@@ -78,10 +79,10 @@ import DefaultLayout from "@/layouts/default-layout.astro"
     </div>
 
     <div class="max-w-5xl mx-auto space-y-4 px-4 mt-20 mb-4">
-      <h2 class="text-2xl font-bold">What people say about me</h2>
+      <h2 class="text-2xl font-bold">Clients I've worked with</h2>
     </div>
     <div class="w-full mx-auto">
-      <TestimonialCarousel client:load />
+      <ClientsCarousel client:load />
     </div>
 
     <div class="max-w-5xl mx-auto space-y-4 px-4 mt-20 mb-4">
@@ -177,6 +178,13 @@ import DefaultLayout from "@/layouts/default-layout.astro"
 
         <Image src={RiverLogo} alt="River" width={80} height={80} />
       </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto space-y-4 px-4 mt-20 mb-4">
+      <h2 class="text-2xl font-bold">What people say about me</h2>
+    </div>
+    <div class="w-full mx-auto">
+      <TestimonialCarousel client:load />
     </div>
   </main>
   <footer class="my-20">
