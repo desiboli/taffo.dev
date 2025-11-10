@@ -1,5 +1,4 @@
 import AutoScroll from "embla-carousel-auto-scroll"
-import * as React from "react"
 
 import {
   Carousel,
@@ -35,15 +34,7 @@ const TESTIMONIALS = [
 ]
 
 export function TestimonialCarousel() {
-  const plugin = React.useRef(
-    AutoScroll({
-      playOnInit: true,
-      stopOnInteraction: false,
-      stopOnMouseEnter: true,
-      startDelay: 0,
-      speed: 1,
-    })
-  )
+  const duplicatedTestimonials = [...TESTIMONIALS, ...TESTIMONIALS]
 
   return (
     <Carousel
@@ -53,12 +44,20 @@ export function TestimonialCarousel() {
         align: "start",
         dragFree: true,
       }}
-      plugins={[plugin.current]}
+      plugins={[
+        AutoScroll({
+          playOnInit: true,
+          stopOnInteraction: false,
+          stopOnMouseEnter: true,
+          startDelay: 0,
+          speed: 1,
+        }),
+      ]}
     >
       <CarouselContent>
-        {TESTIMONIALS.map((testimonial) => (
+        {duplicatedTestimonials.map((testimonial, index) => (
           <CarouselItem
-            key={testimonial.id}
+            key={`${testimonial.id}-${index}`}
             className="basis-full md:basis-1/2 lg:basis-1/3"
           >
             <div className="p-1">
