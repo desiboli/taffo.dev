@@ -3,6 +3,7 @@ import { Image } from "astro:assets"
 import BriccoLogo from "@/assets/bricco.svg"
 import DigitalistLogo from "@/assets/digitalist.webp"
 import DinboxLogo from "@/assets/dinbox.webp"
+import HomeQLogo from "@/assets/homeq.webp"
 import PluckLogo from "@/assets/pluckmarket_logo.webp"
 import RCOLogo from "@/assets/rco.svg"
 import RiverLogo from "@/assets/river_cresco_logo.webp"
@@ -75,14 +76,14 @@ import DefaultLayout from "@/layouts/default-layout.astro"
       </div>
     </section>
 
-    <section>
+    <!-- <section>
       <div class="max-w-5xl mx-auto space-y-4 px-4 mt-20 mb-4">
         <h1 class="text-2xl font-bold">Clients I've worked with</h1>
       </div>
-      <div class="w-full mx-auto">
+      <div class="max-w-5xl mx-auto px-4">
         <ClientsCarousel client:load />
       </div>
-    </section>
+    </section> -->
 
     <section>
       <div class="max-w-5xl mx-auto space-y-4 px-4 mt-20 mb-4">
@@ -91,11 +92,23 @@ import DefaultLayout from "@/layouts/default-layout.astro"
       <div class="max-w-5xl mx-auto space-y-4 px-4">
         <div class="flex items-center justify-between gap-4">
           <div class="flex flex-col">
+            <h2 class="text-xl font-medium">HomeQ</h2>
+            <h3 class="text-lg text-muted-foreground">
+              Senior Frontend Developer
+            </h3>
+            <p>Full-time · 2026 - Present</p>
+          </div>
+
+          <Image src={HomeQLogo} alt="HomeQ" width={80} height={80} />
+        </div>
+
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex flex-col">
             <h2 class="text-xl font-medium">Sveriges Television</h2>
             <h3 class="text-lg text-muted-foreground">
               Senior Frontend Developer Lead & UX/UI Designer
             </h3>
-            <p>Full-time · 2024 - Present</p>
+            <p>Full-time · 2024 - 2026</p>
           </div>
 
           <SVTLogo class="size-20" />
