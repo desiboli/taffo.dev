@@ -1,0 +1,60 @@
+---
+import { getCollection } from "astro:content"
+import AppHeader from "@/components/app-header.astro"
+import DefaultLayout from "@/layouts/default-layout.astro"
+
+const posts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+---
+
+<DefaultLayout>
+  <AppHeader />
+
+  <main class="mt-10 mb-20">
+    <section class="max-w-5xl mx-auto space-y-4 px-4">
+      <h1 class="text-2xl md:text-3xl font-bold">Blog</h1>
+      <p class="text-muted-foreground">
+        Thoughts on product engineering, frontend, and building things.
+      </p>
+    </section>
+
+    <section class="max-w-5xl mx-auto space-y-6 px-4 mt-12">
+      {posts.length === 0 ? (
+        <p class="text-muted-foreground">No posts yet. Check back soon.</p>
+      ) : (
+        <ul class="space-y-6">
+          {posts.map((post) => (
+            <li>
+              <a
+                href={`/blog/${post.id}`}
+                class="block p-4 rounded-xl border border-border hover:bg-muted/50 transition-colors"
+              >
+                <h2 class="text-xl font-medium">{post.data.title}</h2>
+                <time
+                  datetime={post.data.pubDate.toISOString()}
+                  class="text-sm text-muted-foreground"
+                >
+                  {post.data.pubDate.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </time>
+                <p class="mt-2 text-muted-foreground">{post.data.description}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  </main>
+
+  <footer class="my-20">
+    <div class="max-w-5xl mx-auto px-4 space-y-4">
+      <p class="text-center text-sm text-muted-foreground">
+        &copy; {new Date().getFullYear()} Mustafa Alshammaa. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</DefaultLayout>

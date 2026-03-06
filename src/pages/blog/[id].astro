@@ -1,0 +1,119 @@
+---
+import { getCollection, render } from "astro:content"
+import AppHeader from "@/components/app-header.astro"
+import DefaultLayout from "@/layouts/default-layout.astro"
+
+export async function getStaticPaths() {
+  const posts = (await getCollection("blog"))
+    .filter((post) => !post.data.draft)
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+
+  return posts.map((post, i) => ({
+    params: { id: post.id },
+    props: {
+      post,
+      prevPost: posts[i - 1] ?? null,
+      nextPost: posts[i + 1] ?? null,
+    },
+  }))
+}
+
+const { post, prevPost, nextPost } = Astro.props
+const { Content } = await render(post)
+---
+
+<DefaultLayout>
+  <AppHeader />
+
+  <main class="mt-10 mb-20">
+    <article class="max-w-3xl mx-auto px-4">
+      <a href="/blog" class="text-sm text-muted-foreground hover:text-foreground mb-6 inline-block">
+        ← Back to blog
+      </a>
+      <header class="mb-8">
+        <h1 class="text-2xl md:text-3xl font-bold">{post.data.title}</h1>
+        <time
+          datetime={post.data.pubDate.toISOString()}
+          class="text-sm text-muted-foreground"
+        >
+          {post.data.pubDate.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </time>
+        {post.data.tags && post.data.tags.length > 0 && (
+          <ul class="flex gap-2 mt-2">
+            {post.data.tags.map((tag) => (
+              <li>
+                <span class="text-xs px-2 py-1 rounded-md bg-muted">
+                  {tag}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </header>
+      <div class="space-y-4 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:mt-6 [&_h3]:text-lg [&_h3]:font-medium [&_h3]:mt-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_p]:leading-relaxed [&_p+_p]:mt-4 [&_strong]:font-semibold [&_a]:text-primary [&_a]:underline [&_a:hover]:no-underline [&_blockquote]:border-l-4 [&_blockquote]:border-muted [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-muted-foreground [&_pre]:relative [&_pre]:my-4 [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:bg-muted [&_pre]:p-4 [&_pre]:text-sm [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_code]:rounded [&_code]:bg-muted [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-sm">
+        <Content />
+      </div>
+
+      <nav class="mt-12 pt-8 border-t border-border flex justify-between gap-4">
+        {prevPost ? (
+          <a
+            href={`/blog/${prevPost.id}`}
+            class="text-sm text-muted-foreground hover:text-foreground transition-colors max-w-[45%]"
+          >
+            <span class="block text-xs uppercase tracking-wide mb-1">Previous</span>
+            <span class="line-clamp-1">{prevPost.data.title}</span>
+          </a>
+        ) : (
+          <span />
+        )}
+        {nextPost ? (
+          <a
+            href={`/blog/${nextPost.id}`}
+            class="text-sm text-muted-foreground hover:text-foreground transition-colors text-right max-w-[45%] ml-auto"
+          >
+            <span class="block text-xs uppercase tracking-wide mb-1">Next</span>
+            <span class="line-clamp-1">{nextPost.data.title}</span>
+          </a>
+        ) : (
+          <span />
+        )}
+      </nav>
+    </article>
+  </main>
+
+  <footer class="my-20">
+    <div class="max-w-5xl mx-auto px-4 space-y-4">
+      <p class="text-center text-sm text-muted-foreground">
+        &copy; {new Date().getFullYear()} Mustafa Alshammaa. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script is:inline>
+    document.querySelectorAll("article pre").forEach((pre) => {
+      const code = pre.querySelector("code")
+      const text = code ? code.textContent : pre.textContent
+      if (!text) return
+
+      const btn = document.createElement("button")
+      btn.type = "button"
+      btn.textContent = "Copy"
+      btn.setAttribute(
+        "style",
+        "position:absolute;top:0.5rem;right:0.5rem;padding:0.25rem 0.5rem;font-size:0.75rem;border-radius:0.25rem;background:var(--color-muted, #e5e7eb);color:var(--color-muted-foreground, #6b7280);border:1px solid var(--color-border, #e5e7eb);cursor:pointer;transition:opacity 0.2s"
+      )
+      btn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(text)
+          btn.textContent = "Copied!"
+          setTimeout(() => { btn.textContent = "Copy" }, 2000)
+        } catch {}
+      })
+      pre.appendChild(btn)
+    })
+  </script>
+</DefaultLayout>

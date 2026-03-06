@@ -1,0 +1,90 @@
+---
+title: "Type-Safe API Calls with Zod"
+description: "Use Zod to validate API responses at runtime and get end-to-end type safety from your backend to your frontend."
+pubDate: 2025-01-20
+tags: ["typescript", "zod", "api"]
+---
+
+# Type-Safe API Calls with Zod
+
+TypeScript gives you compile-time safety, but API responses are runtime data. You can't trust that the server actually returns what you expect. Zod lets you validate responses and get TypeScript types from the same schema.
+
+## The Problem
+
+You might write:
+
+```ts
+interface User {
+  id: string
+  name: string
+  email: string
+}
+
+async function fetchUser(id: string): Promise<User> {
+  const res = await fetch(`/api/users/${id}`)
+  const data = await res.json()
+  return data  // No guarantee this matches User!
+}
+```
+
+If the API returns `{ id: 123, name: "Alice" }` (number id, missing email), you'll get runtime errors and no type errors. The type is a lie.
+
+## Define a Schema with Zod
+
+Instead of a plain interface, define a schema. Zod validates at runtime and infers the type for free:
+
+```ts
+import { z } from "zod"
+
+const UserSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string().email(),
+})
+
+type User = z.infer<typeof UserSchema>
+```
+
+Now `User` is derived from the schema. Change the schema and the type updates automatically.
+
+## Validate the Response
+
+Parse the response before using it:
+
+```ts
+async function fetchUser(id: string): Promise<User> {
+  const res = await fetch(`/api/users/${id}`)
+  const data = await res.json()
+  return UserSchema.parse(data)  // Throws if invalid
+}
+```
+
+If the response doesn't match the schema, `parse` throws a `ZodError` with details about what went wrong. Use `safeParse` if you prefer to handle errors yourself:
+
+```ts
+const result = UserSchema.safeParse(data)
+if (!result.success) {
+  console.error(result.error.flatten())
+  throw new Error("Invalid user data")
+}
+return result.data
+```
+
+## Optional and Partial Fields
+
+APIs often return optional or nullable fields. Zod handles that:
+
+```ts
+const ApiUserSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string().email().optional(),
+  avatar: z.string().url().nullable(),
+})
+```
+
+Use `.optional()` for fields that might be absent and `.nullable()` for explicit `null`.
+
+## Wrapping Up
+
+Zod gives you runtime validation and type inference from a single source of truth. Use it for API responses, form data, and any external input. Your types will match reality.

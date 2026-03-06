@@ -1,0 +1,103 @@
+---
+title: "Building My Personal Site with Astro"
+description: "How I built my personal portfolio and blog using Astro, content collections, and modern tooling."
+pubDate: 2025-03-06
+tags: ["astro", "web", "portfolio"]
+---
+
+# Building My Personal Site with Astro
+
+After years of building products for others, I decided it was time to create a space that reflects my own approach to web development. Here's how I built this site with Astro, including the actual code that powers it.
+
+## Why Astro?
+
+Astro stood out for several reasons:
+
+- **Content-first**: Content collections make managing blog posts and snippets straightforward
+- **Zero JS by default**: Pages ship minimal JavaScript, which keeps things fast
+- **Flexible**: I can drop in React components where needed (e.g. carousels) without forcing a full SPA
+- **Great DX**: TypeScript, MDX, and solid tooling out of the box
+
+## Defining the Blog Collection
+
+I use Astro's Content Layer API with a `blog` collection. Each post is validated with a Zod schema so I get type safety and clear errors if I forget a required field.
+
+```ts
+// src/content.config.ts
+const blog = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.date(),
+    tags: z.array(z.string()).optional(),
+    draft: z.boolean().optional(),
+  }),
+})
+
+export const collections = {
+  snippets,
+  blog,
+}
+```
+
+The `glob` loader picks up both `.md` and `.mdx` files from `src/content/blog`. The schema ensures every post has `title`, `description`, and `pubDate`; `tags` and `draft` are optional.
+
+## Generating Post Pages
+
+Content collections don't create routes automatically. I use a dynamic route with `getStaticPaths()` to generate a page for each post:
+
+```astro
+---
+import { getCollection, render } from "astro:content"
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog")
+  return posts
+    .filter((post) => !post.data.draft)
+    .map((post) => ({
+      params: { id: post.id },
+      props: { post },
+    }))
+}
+
+const { post } = Astro.props
+const { Content } = await render(post)
+---
+<h1>{post.data.title}</h1>
+<Content />
+```
+
+`getCollection("blog")` returns all entries; I filter out drafts and map each to a route param and props. The `render()` function from `astro:content` compiles the MDX body into a `Content` component I can render in the template.
+
+## Showing the Latest Post on the Homepage
+
+On the start page, I fetch the latest post and show a preview:
+
+```astro
+---
+const allPosts = await getCollection("blog")
+const latestPost = allPosts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())[0]
+---
+{latestPost && (
+  <a href={`/blog/${latestPost.id}`}>
+    <h2>{latestPost.data.title}</h2>
+    <p>{latestPost.data.description}</p>
+  </a>
+)}
+```
+
+Sorting by `pubDate` descending and taking the first entry gives the most recent post. The `id` comes from the filename (e.g. `building-my-personal-site-with-astro.mdx` → `building-my-personal-site-with-astro`).
+
+## The Stack
+
+- **Astro 5** with the Content Layer API
+- **Tailwind CSS** for styling
+- **MDX** for rich blog content (including code blocks like these)
+- **React** for interactive components (testimonials, carousels)
+
+## What's Next
+
+I plan to add more posts about product engineering, frontend patterns, and lessons from shipping real products. Stay tuned.

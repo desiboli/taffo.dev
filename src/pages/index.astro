@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content"
 import { Image } from "astro:assets"
 import BriccoLogo from "@/assets/bricco.svg"
 import DigitalistLogo from "@/assets/digitalist.webp"
@@ -17,6 +18,11 @@ import HeroBranding from "@/components/hero-branding.astro"
 import SocialLinkCard from "@/components/social-link-card.astro"
 import { TestimonialCarousel } from "@/components/testimonial-carousel"
 import DefaultLayout from "@/layouts/default-layout.astro"
+
+const allPosts = await getCollection("blog")
+const latestPost = allPosts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())[0]
 ---
 
 <script is:inline>
@@ -73,6 +79,42 @@ import DefaultLayout from "@/layouts/default-layout.astro"
           title="GitHub"
           username="desiboli"
         />
+      </div>
+    </section>
+
+    <section>
+      <div class="max-w-5xl mx-auto space-y-4 px-4 mt-20 mb-4">
+        <h1 class="text-2xl font-bold">Latest from the blog</h1>
+      </div>
+      <div class="max-w-5xl mx-auto px-4">
+        {latestPost ? (
+          <a
+            href={`/blog/${latestPost.id}`}
+            class="block p-4 rounded-xl border border-border hover:bg-muted/50 transition-colors"
+          >
+            <h2 class="text-xl font-medium">{latestPost.data.title}</h2>
+            <time
+              datetime={latestPost.data.pubDate.toISOString()}
+              class="text-sm text-muted-foreground"
+            >
+              {latestPost.data.pubDate.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+            <p class="mt-2 text-muted-foreground">{latestPost.data.description}</p>
+            <span class="mt-2 inline-block text-sm font-medium">Read more →</span>
+          </a>
+        ) : (
+          <p class="text-muted-foreground">No posts yet. Check back soon.</p>
+        )}
+        <a
+          href="/blog"
+          class="mt-4 inline-block text-sm text-muted-foreground hover:text-foreground"
+        >
+          View all posts →
+        </a>
       </div>
     </section>
 

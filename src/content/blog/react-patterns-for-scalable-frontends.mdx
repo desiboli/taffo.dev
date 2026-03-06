@@ -1,0 +1,101 @@
+---
+title: "React Patterns for Scalable Frontends"
+description: "Compound components, custom hooks, and composition patterns that keep React codebases maintainable as they grow."
+pubDate: 2025-02-15
+tags: ["react", "frontend", "patterns"]
+---
+
+# React Patterns for Scalable Frontends
+
+As React applications grow, structure matters. Here are a few patterns I rely on to keep components flexible and easy to reason about.
+
+## Compound Components
+
+Instead of a single monolithic component with dozens of props, expose smaller pieces that work together. The parent provides shared state via context; children consume it.
+
+```tsx
+// Card.tsx
+const CardContext = createContext<{ variant: "default" | "outlined" } | null>(null)
+
+export function Card({ variant = "default", children }: CardProps) {
+  return (
+    <CardContext.Provider value={{ variant }}>
+      <div className={cn("rounded-lg", variant === "outlined" && "border")}>
+        {children}
+      </div>
+    </CardContext.Provider>
+  )
+}
+
+export function CardHeader({ children }: { children: React.ReactNode }) {
+  const ctx = useContext(CardContext)
+  return <header className="px-4 py-2">{children}</header>
+}
+
+export function CardContent({ children }: { children: React.ReactNode }) {
+  return <div className="px-4 py-3">{children}</div>
+}
+```
+
+Usage stays readable and flexible:
+
+```tsx
+<Card variant="outlined">
+  <CardHeader>Title</CardHeader>
+  <CardContent>Body content here.</CardContent>
+</Card>
+```
+
+## Custom Hooks for Shared Logic
+
+Extract reusable logic into hooks instead of duplicating it across components.
+
+```tsx
+function useLocalStorage<T>(key: string, initial: T) {
+  const [value, setValue] = useState<T>(() => {
+    try {
+      const raw = localStorage.getItem(key)
+      return raw ? JSON.parse(raw) : initial
+    } catch {
+      return initial
+    }
+  })
+
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(value))
+  }, [key, value])
+
+  return [value, setValue] as const
+}
+```
+
+Now any component can sync state with `localStorage` without repeating the logic.
+
+## Controlled vs Uncontrolled
+
+For form-like components, support both modes. Use a ref for uncontrolled usage and optional props for controlled usage.
+
+```tsx
+function SearchInput({
+  value: controlledValue,
+  onChange,
+  defaultValue,
+  ...rest
+}: SearchInputProps) {
+  const [internalValue, setInternalValue] = useState(defaultValue ?? "")
+  const isControlled = controlledValue !== undefined
+  const value = isControlled ? controlledValue : internalValue
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const next = e.target.value
+    if (!isControlled) setInternalValue(next)
+    onChange?.(next)
+  }
+
+  return <input {...rest} value={value} onChange={handleChange} />
+}
+```
+
+## Wrapping Up
+
+These patterns—compound components, custom hooks, and controlled/uncontrolled—help keep React codebases scalable. Start small and refactor toward them as complexity grows.
