@@ -6,16 +6,35 @@ import { ModeToggle } from "@/components/mode-toggle"
   <div
     class="flex items-center justify-between backdrop-blur supports-backdrop-filter:bg-secondary/5 rounded-2xl p-4"
   >
-    <div class="text-xs flex items-center gap-2">
-      <span class="relative flex size-3">
-        <span
-          class="absolute inline-flex h-full w-full animate-ping rounded-full bg-yellow-400 opacity-75"
-        ></span>
-        <span class="relative inline-flex size-3 rounded-full bg-yellow-500"
-        ></span>
-      </span>
-      Available from April 13, 2026
-    </div>
+    <nav class="flex items-center gap-4">
+      <!-- <a href="/" class="text-xs hover:text-foreground/80 transition-colors">
+        Home
+      </a>
+      <a
+        href="/blog"
+        class="text-xs hover:text-foreground/80 transition-colors"
+      >
+        Blog
+      </a> -->
+      <div class="text-xs flex items-center gap-2">
+        <span class="relative flex size-3">
+          <span
+            class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"
+          ></span>
+          <span class="relative inline-flex size-3 rounded-full bg-green-500"
+          ></span>
+        </span>
+        Available
+        <!-- <span class="relative flex size-3">
+          <span
+            class="absolute inline-flex h-full w-full animate-ping rounded-full bg-yellow-400 opacity-75"
+          ></span>
+          <span class="relative inline-flex size-3 rounded-full bg-yellow-500"
+          ></span>
+        </span>
+        Available from April 13, 2026 -->
+      </div>
+    </nav>
     <ModeToggle client:load />
   </div>
 </header>
