@@ -1,0 +1,125 @@
+---
+import { Image } from "astro:assets"
+import BriccoLogo from "@/assets/bricco.svg"
+import DigitalistLogo from "@/assets/digitalist.webp"
+import DinboxLogo from "@/assets/dinbox.webp"
+import HomeQLogo from "@/assets/homeq.webp"
+import PluckLogo from "@/assets/pluckmarket_logo.webp"
+import RCOLogo from "@/assets/rco.svg"
+import RiverLogo from "@/assets/river_cresco_logo.webp"
+import StellarLogo from "@/assets/stellar.svg"
+import SVTLogo from "@/assets/svt.svg"
+---
+
+<section>
+  <div class="max-w-5xl mx-auto space-y-4 px-4 mt-20 mb-4">
+    <h1 class="text-2xl font-bold">Experience</h1>
+  </div>
+  <div class="max-w-5xl mx-auto space-y-4 px-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex flex-col">
+        <h2 class="text-lg">HomeQ</h2>
+        <h3 class="text-xl font-medium">Senior Frontend Developer</h3>
+        <p class="text-xs text-muted-foreground">
+          Full-time Contractor · Jan 2026 - Apr 2026
+        </p>
+      </div>
+
+      <Image src={HomeQLogo} alt="HomeQ" width={80} height={80} />
+    </div>
+
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex flex-col">
+        <h2 class="text-lg">Sveriges Television</h2>
+        <h3 class="text-xl font-medium">
+          Senior Frontend Developer Lead & UX/UI Designer
+        </h3>
+        <p class="text-xs text-muted-foreground">
+          Full-time Contractor · 2024 - 2026
+        </p>
+      </div>
+
+      <SVTLogo class="size-20" />
+    </div>
+
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex flex-col">
+        <h2 class="text-lg">RCO Security</h2>
+        <h3 class="text-xl font-medium">
+          Senior Frontend Developer Lead & UX/UI Designer
+        </h3>
+        <p class="text-xs text-muted-foreground">Full-time Contractor · 2024</p>
+      </div>
+
+      <RCOLogo class="size-20 text-foreground" />
+    </div>
+
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex flex-col">
+        <h2 class="text-lg">Dinbox</h2>
+        <h3 class="text-xl font-medium">
+          Senior Frontend Developer Lead & UX/UI Designer
+        </h3>
+        <p class="text-xs text-muted-foreground">
+          Full-time Contractor · 2023 - 2024
+        </p>
+      </div>
+
+      <Image src={DinboxLogo} alt="Dinbox" width={80} height={80} />
+    </div>
+
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex flex-col">
+        <h2 class="text-lg">The Stellar Collective</h2>
+        <h3 class="text-xl font-medium">
+          Senior Frontend Developer Consultant
+        </h3>
+        <p class="text-xs text-muted-foreground">Full-time · 2023 - Present</p>
+      </div>
+
+      <StellarLogo class="size-20 text-foreground" />
+    </div>
+
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex flex-col">
+        <h2 class="text-lg">Pluck</h2>
+        <h3 class="text-xl font-medium">Co-Founder</h3>
+        <p class="text-xs text-muted-foreground">2018 - 2024</p>
+      </div>
+
+      <Image src={PluckLogo} alt="Pluck" width={80} height={80} />
+    </div>
+
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex flex-col">
+        <h2 class="text-lg">Digitalist Sweden</h2>
+        <h3 class="text-xl font-medium">
+          Frontend Developer Lead & Scrum Master
+        </h3>
+        <p class="text-xs text-muted-foreground">Full-time · 2017 - 2021</p>
+      </div>
+
+      <Image src={DigitalistLogo} alt="Digitalist" width={80} height={80} />
+    </div>
+
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex flex-col">
+        <h2 class="text-lg">Bricco</h2>
+        <h3 class="text-xl font-medium">Fullstack Developer</h3>
+        <p class="text-xs text-muted-foreground">Full-time · 2014 - 2017</p>
+      </div>
+
+      <BriccoLogo class="size-20 fill-foreground" />
+    </div>
+
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex flex-col">
+        <h2 class="text-lg">River</h2>
+        <h3 class="text-xl font-medium">Internship</h3>
+        <p class="text-xs text-muted-foreground">Full-time · 2011 - 2012</p>
+      </div>
+
+      <Image src={RiverLogo} alt="River" width={80} height={80} />
+    </div>
+  </div>
+</section>

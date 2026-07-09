@@ -5,6 +5,7 @@
 
 @theme {
 	--font-sans: "Poppins", "sans-serif";
+	--font-cursive: "Sacramento", "cursive";
 }
 
 @theme inline {

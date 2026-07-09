@@ -62,7 +62,7 @@ export function TestimonialCarousel() {
           >
             <div className="p-1">
               <div className="flex flex-col gap-2">
-                <h2 className="font-semibold text-lg leading-relaxed md:text-xl">
+                <h2 className="text-lg font-medium leading-relaxed md:text-xl">
                   {testimonial.testimonial}
                 </h2>
                 <p className="text-muted-foreground text-sm">
