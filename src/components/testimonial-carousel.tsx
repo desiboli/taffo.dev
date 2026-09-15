@@ -69,10 +69,10 @@ export function TestimonialCarousel() {
         {duplicatedTestimonials.map((testimonial, index) => (
           <CarouselItem
             key={`${testimonial.id}-${index}`}
-            className="basis-full md:basis-1/2 lg:basis-1/4"
+            className="basis-full md:basis-1/2 lg:basis-1/3 2xl:basis-1/4"
           >
             <div className="p-1">
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 text-justify">
                 <h2 className="text-lg font-medium leading-relaxed md:text-xl">
                   {testimonial.testimonial}
                 </h2>
