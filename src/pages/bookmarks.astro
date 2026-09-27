@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content"
+import MainLayout from "@/layouts/main.astro"
+import Header from "@/components/Header.astro"
+import SiteControls from "@/components/SiteControls.astro"
+import AskAiAside from "@/components/AskAiAside.astro"
+import { BookmarksExplorer } from "@/components/BookmarksExplorer"
+import { toBookmarkItem } from "@/data/bookmarks"
+
+const bookmarks = (
+  await getCollection("bookmarks", ({ data }) => !data.draft)
+).map((entry) => toBookmarkItem(entry.data))
+---
+
+<MainLayout>
+  <div class="page-grid content-start gap-y-1 pt-8 min-h-svh md:pt-14">
+    <div class="min-w-0 px-4 md:col-start-2 md:row-start-1 md:px-0">
+      <Header />
+    </div>
+
+    <SiteControls />
+    <AskAiAside />
+
+    <main class="min-w-0 self-start px-4 md:col-start-2 md:px-0">
+      <section id="bookmarks" class="mt-20">
+        <h1 class="font-heading">Bookmarks</h1>
+        <h2 class="text-sm text-muted-foreground">
+          Tools, docs, and references that earn a spot on the shelf.
+        </h2>
+
+        <BookmarksExplorer client:load items={bookmarks} />
+      </section>
+    </main>
+  </div>
+</MainLayout>
