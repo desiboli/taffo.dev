@@ -1,4 +1,5 @@
 ---
+import { IconEye } from '@tabler/icons-astro'
 import { version } from '../../package.json'
 
 const today = new Date()
@@ -19,10 +20,21 @@ const today = new Date()
     >
       <div id="wcb" class="carbonbadge"></div>
       <p
-        class="text-center text-[10px] tracking-wide text-muted-foreground/60"
+        id="site-meta"
+        class="inline-flex items-center gap-1 text-center text-[10px] tracking-wide text-muted-foreground/60"
         aria-label={`Site version ${version}`}
       >
-        v{version}<span id="site-views" hidden></span>
+        <span aria-hidden="true">v{version}</span>
+        <span
+          id="site-views"
+          class="inline-flex items-center gap-0.5"
+          hidden
+          aria-hidden="true"
+        >
+          ·
+          <IconEye class="size-2.5" stroke={1.5} />
+          <span id="site-views-count"></span>
+        </span>
       </p>
     </div>
   </div>
@@ -61,9 +73,17 @@ const today = new Date()
         .then((r) => (r.ok ? r.json() : Promise.reject()))
         .then((d) => {
           const el = document.getElementById("site-views")
-          if (!el || !d.count) return
-          el.textContent = ` · ${d.count} views`
+          const count = document.getElementById("site-views-count")
+          const meta = document.getElementById("site-meta")
+          if (!el || !count || !d.count) return
+          count.textContent = d.count
           el.hidden = false
+          if (meta) {
+            meta.setAttribute(
+              "aria-label",
+              `${meta.getAttribute("aria-label")} · ${d.count} views`,
+            )
+          }
         })
         .catch(() => {})
     </script>
