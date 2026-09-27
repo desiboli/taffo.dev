@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0](https://github.com/desiboli/taffo.dev/compare/v1.2.1...v1.3.0) (2026-09-27)
+
+
+### Features
+
+* add eye icon to footer view count ([20e6dab](https://github.com/desiboli/taffo.dev/commit/20e6dab79fd90f3de365012789ce21bfe4774442))
+* add website carbon badge and view count to footer ([8feb6c8](https://github.com/desiboli/taffo.dev/commit/8feb6c86cddce779a36f4af66f92df544de20e84))
+
 ## [1.2.1](https://github.com/desiboli/taffo.dev/compare/v1.2.0...v1.2.1) (2026-09-27)
 
 
