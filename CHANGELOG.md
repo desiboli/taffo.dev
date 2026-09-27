@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/desiboli/taffo.dev/compare/v1.0.2...v1.1.0) (2026-09-27)
+
+
+### Features
+
+* improve SEO with meta tags, JSON-LD, and discovery assets ([01ef913](https://github.com/desiboli/taffo.dev/commit/01ef9138a9f9132a6d48590132e73914595a9f0a))
+
 ## [1.0.2](https://github.com/desiboli/taffo.dev/compare/v1.0.1...v1.0.2) (2026-09-27)
 
 
