@@ -96,7 +96,7 @@ export function CommandMenu() {
   return (
     <>
       <div className="flex items-center">
-        <Kbd className="bg-transparent text-muted-foreground/50 text-[8px]">
+        <Kbd className="hidden bg-transparent text-muted-foreground/50 text-[8px] md:inline-flex">
           ⌘ K
         </Kbd>
         <Button

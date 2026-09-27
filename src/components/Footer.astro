@@ -6,19 +6,19 @@ const today = new Date()
 
 <footer>
   <div class="page-grid py-40">
-    <div class="flex w-full flex-col gap-6 px-4 md:col-start-2 md:px-0">
-      <div class="flex items-center justify-between gap-4">
-        <h2 class="font-handwriting text-2xl font-bold">Mustafa</h2>
-        <p class="text-sm text-muted-foreground">
-          &copy; {today.getFullYear()} · Mustafa Alshammaa.
-        </p>
-      </div>
-      <p
-        class="text-center text-[10px] tracking-wide text-muted-foreground/60"
-        aria-label={`Site version ${version}`}
-      >
-        v{version}
+    <div class="flex w-full items-center justify-between gap-4 px-4 md:col-start-2 md:px-0">
+      <h2 class="font-handwriting text-2xl font-bold">Mustafa</h2>
+      <p class="text-sm text-muted-foreground">
+        &copy; {today.getFullYear()} · Mustafa Alshammaa.
       </p>
     </div>
+  </div>
+  <div class="page-grid pb-6">
+    <p
+      class="px-4 text-center text-[10px] tracking-wide text-muted-foreground/60 md:col-start-2 md:px-0"
+      aria-label={`Site version ${version}`}
+    >
+      v{version}
+    </p>
   </div>
 </footer>
