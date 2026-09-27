@@ -1,0 +1,53 @@
+---
+import {
+  IconBolt,
+  IconCloud,
+  IconCloudFog,
+  IconCloudRain,
+  IconSnowflake,
+  IconSun,
+} from "@tabler/icons-astro"
+import { formatStockholmTime } from "@/lib/stockholm-clock"
+
+const today = new Date()
+---
+
+<div
+  class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-light text-muted-foreground dark:text-muted-foreground/70"
+>
+  <span
+    data-stockholm-weather
+    class="flex items-center gap-1"
+    title="Weather by Open-Meteo"
+  >
+    <IconSun data-weather-icon="clear" class="size-4" hidden />
+    <IconCloud data-weather-icon="cloudy" class="size-4" hidden />
+    <IconCloudFog data-weather-icon="fog" class="size-4" hidden />
+    <IconCloudRain data-weather-icon="rain" class="size-4" hidden />
+    <IconSnowflake data-weather-icon="snow" class="size-4" hidden />
+    <IconBolt data-weather-icon="storm" class="size-4" hidden />
+    <span data-weather-label>—</span>
+    <span data-weather-temp>—</span>
+  </span>
+
+  <span aria-hidden="true">·</span>
+
+  <span class="flex items-center gap-1.5">
+    Stockholm
+    <time
+      data-stockholm-clock
+      class="tabular-nums"
+      datetime={today.toISOString()}
+    >
+      {formatStockholmTime(today)}
+    </time>
+  </span>
+</div>
+
+<script>
+  import { initStockholmClock } from "@/lib/stockholm-clock"
+  import { initStockholmWeather } from "@/lib/stockholm-weather"
+
+  initStockholmClock()
+  initStockholmWeather()
+</script>

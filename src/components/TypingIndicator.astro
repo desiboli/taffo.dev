@@ -1,0 +1,26 @@
+---
+interface Props {
+  class?: string
+  label?: string
+}
+
+const { class: className, label = "Typing" } = Astro.props
+---
+
+<div
+  class:list={[
+    "inline-flex items-center justify-center gap-1 rounded-full",
+    className,
+  ]}
+  role="status"
+  aria-label={label}
+>
+  {
+    [0, 1, 2].map((i) => (
+      <span
+        class="typing-dot size-1.5 shrink-0 rounded-full bg-muted-foreground"
+        style={`animation-delay: ${i * 0.15}s`}
+      />
+    ))
+  }
+</div>

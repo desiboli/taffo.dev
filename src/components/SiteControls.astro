@@ -1,0 +1,15 @@
+---
+import { SiteControlButtons } from "@/components/ConnectMorphButton"
+---
+
+<aside
+  class="z-50 hidden h-fit w-fit self-start md:sticky md:top-[calc(100dvh-9.5rem)] md:bottom-3 md:col-start-1 md:row-span-full md:block md:justify-self-end"
+>
+  <SiteControlButtons client:load />
+</aside>
+
+<script>
+  import { initSound } from "@/lib/sound"
+
+  initSound()
+</script>
