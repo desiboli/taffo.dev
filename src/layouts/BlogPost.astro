@@ -1,86 +1,396 @@
 ---
-import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
+import { Image } from "astro:assets"
+import type { ImageMetadata } from "astro"
+import BaseHead from "../components/BaseHead.astro"
+import DarkCarbonSpotlightBackground from "@/components/DarkCarbonSpotlightBackground.astro"
+import Footer from "../components/Footer.astro"
+import FormattedDate from "../components/FormattedDate.astro"
+import Header from "@/components/Header.astro"
+import SiteControls from "@/components/SiteControls.astro"
+import AskAiAside from "@/components/AskAiAside.astro"
+import TopBar from "@/components/TopBar.astro"
+import { IconArrowLeft } from "@tabler/icons-astro"
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = {
+  title: string
+  description: string
+  pubDate: Date
+  updatedDate?: Date
+  heroImage?: ImageMetadata
+  tags?: string[]
+  backHref?: string
+  backLabel?: string
+}
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  tags = [],
+  backHref = "/blog",
+  backLabel = "Back to writing",
+} = Astro.props
 ---
 
-<html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-	</head>
+<script is:inline>
+  const getThemePreference = () => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme")
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light"
+  }
+  const isDark = getThemePreference() === "dark"
+  document.documentElement.classList[isDark ? "add" : "remove"]("dark")
 
-	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
-					</div>
-					<slot />
-				</div>
-			</article>
-		</main>
-		<Footer />
-	</body>
+  if (typeof localStorage !== "undefined") {
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains("dark")
+      localStorage.setItem("theme", isDark ? "dark" : "light")
+    })
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    })
+  }
+</script>
+
+<script>
+  import { initThemeKeyboardShortcut } from "@/lib/theme"
+
+  initThemeKeyboardShortcut()
+</script>
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body class="relative isolate grid min-h-svh grid-rows-[auto_1fr_auto]">
+    <DarkCarbonSpotlightBackground />
+    <TopBar />
+    <div class="page-grid content-start gap-y-1 pt-8 md:pt-14">
+      <div
+        class="min-w-0 self-start px-4 md:col-start-2 md:row-start-1 md:px-0"
+      >
+        <Header />
+      </div>
+
+      <SiteControls />
+      <AskAiAside />
+
+      <main class="contents">
+        {
+          heroImage && (
+            <div class="hero-image col-span-full mt-6 px-4 md:px-0">
+              <Image
+                width={1920}
+                height={960}
+                src={heroImage}
+                alt=""
+                class="h-full w-full object-cover"
+              />
+            </div>
+          )
+        }
+
+        <aside
+          class:list={[
+            "hidden self-start justify-self-end md:col-start-1 md:block md:sticky md:top-8",
+            !heroImage && "md:mt-20",
+          ]}
+        >
+          <a
+            href={backHref}
+            data-cuelume-hover="tick"
+            class="group flex w-max items-center gap-2 whitespace-nowrap text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <IconArrowLeft
+              class="size-3.5 transition-transform group-hover:-translate-x-0.5"
+            />
+            {backLabel}
+          </a>
+        </aside>
+
+        <article
+          class:list={[
+            "blog-content min-w-0 px-4 md:col-start-2 md:px-0",
+            !heroImage && "mt-20",
+          ]}
+        >
+          <div class="post-title">
+            <a
+              href={backHref}
+              class="mb-8 flex items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-foreground md:hidden"
+            >
+              <IconArrowLeft class="size-3" />
+              {backLabel}
+            </a>
+            <div class="post-date">
+              <FormattedDate date={pubDate} />
+              {
+                updatedDate && (
+                  <div class="ml-3 inline">
+                    Last updated on <FormattedDate date={updatedDate} />
+                  </div>
+                )
+              }
+            </div>
+            <h1 class="text-balance">{title}</h1>
+            {
+              tags.length > 0 && (
+                <ul class="post-tags">
+                  {tags.map((tag) => (
+                    <li>
+                      <a href={`/notes?tag=${encodeURIComponent(tag)}`}>
+                        #{tag}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )
+            }
+            <hr />
+          </div>
+          <slot />
+        </article>
+      </main>
+    </div>
+    <Footer />
+  </body>
 </html>
+
+<style>
+  .hero-image {
+    margin-bottom: 2rem;
+    max-height: min(28vh, 20rem);
+    overflow: hidden;
+  }
+
+  .hero-image :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: min(28vh, 20rem);
+    object-fit: cover;
+  }
+
+  .blog-content {
+    color: var(--foreground);
+  }
+
+  .post-title {
+    margin-bottom: 2rem;
+  }
+
+  .post-date,
+  .last-updated-on {
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    line-height: 1rem;
+    text-transform: uppercase;
+  }
+
+  .post-title h1 {
+    margin: 0.75rem 0 1.5rem;
+    color: var(--foreground);
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 8vw, 1.75rem);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    margin: -0.75rem 0 1.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .post-tags li {
+    margin: 0;
+    font-size: inherit;
+    line-height: 1;
+    color: inherit;
+  }
+
+  .post-tags a {
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  .post-tags a:hover {
+    color: var(--foreground);
+  }
+
+  .post-title hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    border-style: dashed;
+  }
+
+  .blog-content :global(p),
+  .blog-content :global(li) {
+    color: var(--foreground);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .blog-content :global(p) {
+    margin: 0 0 1rem;
+  }
+
+  .blog-content :global(h2),
+  .blog-content :global(h3),
+  .blog-content :global(h4) {
+    color: var(--foreground);
+    font-family: var(--font-heading);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    scroll-margin-top: 2rem;
+  }
+
+  .blog-content :global(h2) {
+    margin: 3.75rem 0 1.25rem;
+    font-size: clamp(1.5rem, 5vw, 1.5rem);
+    line-height: 1.15;
+  }
+
+  .blog-content :global(h3) {
+    margin: 2.5rem 0 1rem;
+    font-size: 1.2rem;
+    line-height: 1.25;
+  }
+
+  .blog-content :global(h4) {
+    margin: 2rem 0 0.75rem;
+    font-size: 1rem;
+  }
+
+  .blog-content :global(a) {
+    color: inherit;
+    text-decoration-color: var(--muted-foreground);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  .blog-content :global(a:hover) {
+    text-decoration-color: currentColor;
+  }
+
+  .blog-content :global(ul:not(.post-tags)),
+  .blog-content :global(ol) {
+    margin: 0 0 1.5rem;
+    padding-left: 1.25rem;
+  }
+
+  /* Tailwind Preflight strips markers; restore only for markdown lists */
+  .blog-content :global(ul:not(.post-tags)) {
+    list-style-type: disc;
+  }
+
+  .blog-content :global(ol) {
+    list-style-type: decimal;
+  }
+
+  .blog-content :global(li + li) {
+    margin-top: 0.4rem;
+  }
+
+  /* Keep title tags out of prose list spacing */
+  .blog-content .post-tags {
+    margin: -0.75rem 0 1.5rem;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .blog-content .post-tags :global(li),
+  .blog-content .post-tags :global(li + li) {
+    margin: 0;
+    font-size: inherit;
+    line-height: 1;
+    color: inherit;
+    list-style: none;
+  }
+
+  .blog-content :global(blockquote) {
+    margin: 2rem 0;
+    border-left: 1px solid var(--foreground);
+    padding-left: 1.25rem;
+  }
+
+  .blog-content :global(blockquote p) {
+    color: var(--muted-foreground);
+    font-size: 1rem;
+  }
+
+  .blog-content :global(:not(pre) > code) {
+    border: 1px solid var(--border);
+    border-radius: 0.25rem;
+    background: var(--muted);
+    padding: 0.12rem 0.35rem;
+    font-size: 0.85em;
+  }
+
+  .blog-content :global(pre) {
+    margin: 2rem 0;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: var(--muted);
+    padding: 1.25rem;
+  }
+
+  .blog-content :global(pre code) {
+    color: var(--foreground);
+    font-size: 0.85rem;
+    line-height: 1.7;
+  }
+
+  .blog-content :global(hr) {
+    margin: 1.5rem 0;
+    border: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .blog-content :global(table) {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .blog-content :global(th),
+  .blog-content :global(td) {
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem;
+    text-align: left;
+  }
+
+  @media (max-width: 640px) {
+    .blog-content :global(p),
+    .blog-content :global(li) {
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    .blog-content :global(pre) {
+      margin-right: -1rem;
+      margin-left: -1rem;
+      border-right: 0;
+      border-left: 0;
+      border-radius: 0;
+      padding: 1rem;
+    }
+  }
+</style>
