@@ -1,5 +1,7 @@
 // @ts-check
 
+import { createRequire } from 'node:module';
+
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
@@ -7,6 +9,8 @@ import { defineConfig, fontProviders } from 'astro/config';
 import react from '@astrojs/react';
 
 import tailwindcss from '@tailwindcss/vite';
+
+const require = createRequire(import.meta.url);
 
 // https://astro.build/config
 export default defineConfig({
@@ -40,5 +44,12 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    // pnpm + Rolldown on Netlify can fail to resolve bare "tslib" imports
+    // from react-remove-scroll even when tslib is a direct dependency.
+    resolve: {
+      alias: {
+        tslib: require.resolve('tslib'),
+      },
+    },
   },
 });
