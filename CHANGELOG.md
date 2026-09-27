@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/desiboli/taffo.dev/compare/v1.0.0...v1.0.1) (2026-09-27)
+
+
+### Bug Fixes
+
+* add tslib so Netlify/pnpm can resolve react-remove-scroll ([c5a6a82](https://github.com/desiboli/taffo.dev/commit/c5a6a82112232b93293766277a18ae07a65a7069))
+
 ## 1.0.0 (2026-09-27)
 
 
