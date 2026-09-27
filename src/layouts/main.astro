@@ -5,6 +5,13 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts"
 import DarkCarbonSpotlightBackground from "@/components/DarkCarbonSpotlightBackground.astro"
 import Footer from "@/components/Footer.astro"
 import TopBar from "@/components/TopBar.astro"
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props
 ---
 
 <script is:inline>
@@ -39,7 +46,7 @@ import TopBar from "@/components/TopBar.astro"
 
 <html lang="en">
   <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <BaseHead title={title} description={description} />
   </head>
   <body class="relative isolate grid min-h-svh grid-rows-[auto_1fr_auto]">
     <DarkCarbonSpotlightBackground />

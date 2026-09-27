@@ -5,13 +5,14 @@ import MainLayout from "@/layouts/main.astro"
 import Header from "@/components/Header.astro"
 import SiteControls from "@/components/SiteControls.astro"
 import AskAiAside from "@/components/AskAiAside.astro"
+import { PAGE_SEO } from "@/consts"
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 )
 ---
 
-<MainLayout>
+<MainLayout title={PAGE_SEO.blog.title} description={PAGE_SEO.blog.description}>
   <div class="page-grid content-start gap-y-1 pt-8 min-h-svh md:pt-14">
     <div class="min-w-0 px-4 md:col-start-2 md:row-start-1 md:px-0">
       <Header />

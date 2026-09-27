@@ -6,13 +6,17 @@ import SiteControls from "@/components/SiteControls.astro"
 import AskAiAside from "@/components/AskAiAside.astro"
 import { BookmarksExplorer } from "@/components/BookmarksExplorer"
 import { toBookmarkItem } from "@/data/bookmarks"
+import { PAGE_SEO } from "@/consts"
 
 const bookmarks = (
   await getCollection("bookmarks", ({ data }) => !data.draft)
 ).map((entry) => toBookmarkItem(entry.data))
 ---
 
-<MainLayout>
+<MainLayout
+  title={PAGE_SEO.bookmarks.title}
+  description={PAGE_SEO.bookmarks.description}
+>
   <div class="page-grid content-start gap-y-1 pt-8 min-h-svh md:pt-14">
     <div class="min-w-0 px-4 md:col-start-2 md:row-start-1 md:px-0">
       <Header />
