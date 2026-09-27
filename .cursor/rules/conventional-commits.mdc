@@ -1,0 +1,57 @@
+---
+description: Use Conventional Commits for all git commits (powers release-please semver)
+alwaysApply: true
+---
+
+# Conventional Commits
+
+Every commit message MUST follow [Conventional Commits](https://www.conventionalcommits.org/). This repo uses **release-please** to bump semver from these messages.
+
+## Format
+
+```
+<type>(<optional scope>): <description>
+
+[optional body]
+
+[optional footer]
+```
+
+## Types (and version impact)
+
+| Type | When to use | Version bump |
+|---|---|---|
+| `feat` | New user-facing capability | **minor** |
+| `fix` | Bug fix | **patch** |
+| `perf` | Performance improvement | **patch** |
+| `docs` | Docs only | none (chore release) |
+| `style` | Formatting, no logic change | none |
+| `refactor` | Restructure without behavior change | none |
+| `test` | Tests only | none |
+| `build` | Build/deps tooling | none |
+| `ci` | CI config | none |
+| `chore` | Maintenance | none |
+
+Breaking changes → **major**:
+- `feat!: ...` / `fix!: ...`, or
+- footer `BREAKING CHANGE: ...`
+
+## Examples
+
+```
+feat: add bookmarks explorer
+fix: correct footer copyright year
+feat(notes): add note detail page
+feat!: redesign homepage layout
+
+fix: prevent theme flash on load
+
+BREAKING CHANGE: theme storage key renamed; users reset to system preference.
+```
+
+## Rules
+
+- Description: imperative, lowercase, no trailing period (`add X`, not `Added X.`)
+- Keep the subject ≤ 72 characters
+- One logical change per commit when practical
+- Do **not** manually bump `package.json` `version` — release-please owns it
