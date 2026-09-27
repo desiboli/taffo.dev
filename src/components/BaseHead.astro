@@ -195,3 +195,14 @@ const jsonLdGraph = [websiteJsonLd, personJsonLd, articleJsonLd].filter(Boolean)
 
 <!-- Structured Data -->
 <script type="application/ld+json" set:html={JSON.stringify(jsonLdGraph)} />
+
+{
+  import.meta.env.PROD && (
+    <script
+      is:inline
+      data-goatcounter="https://taffo.goatcounter.com/count"
+      async
+      src="https://gc.zgo.at/count.js"
+    />
+  )
+}
