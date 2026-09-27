@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/desiboli/taffo.dev/compare/v1.0.1...v1.0.2) (2026-09-27)
+
+
+### Bug Fixes
+
+* make tslib resolvable for Netlify pnpm + Rolldown builds ([e73209b](https://github.com/desiboli/taffo.dev/commit/e73209bf933ae760aa3dce5484560e06f51fbacb))
+
 ## [1.0.1](https://github.com/desiboli/taffo.dev/compare/v1.0.0...v1.0.1) (2026-09-27)
 
 
