@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Cursor local hook runtime state (keep .cursor/rules/ tracked)
+.cursor/hooks/state/
