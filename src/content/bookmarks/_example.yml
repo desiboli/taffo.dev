@@ -1,0 +1,13 @@
+# Copy this file, rename it, then set draft: false when ready to publish.
+name: Cursor
+description: AI-native code editor that keeps context close to the work.
+shortDescription: AI code editor
+href: https://cursor.com
+domain: cursor.com
+letter: C
+color: text-foreground
+tags:
+  - tools
+  - ai
+featured: true
+draft: true
