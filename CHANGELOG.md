@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/desiboli/taffo.dev/compare/v1.2.0...v1.2.1) (2026-09-27)
+
+
+### Bug Fixes
+
+* improve mobile command menu and footer layout ([fa349d1](https://github.com/desiboli/taffo.dev/commit/fa349d112cfd008e3c4020e1e5e47356ac7b4c94))
+
 ## [1.2.0](https://github.com/desiboli/taffo.dev/compare/v1.1.0...v1.2.0) (2026-09-27)
 
 
