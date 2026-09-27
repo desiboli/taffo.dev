@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/desiboli/taffo.dev/compare/v1.1.0...v1.2.0) (2026-09-27)
+
+
+### Features
+
+* add GoatCounter analytics in production ([f6c1416](https://github.com/desiboli/taffo.dev/commit/f6c1416b64bf54608b2035402ec3fbbc41d3d509))
+
 ## [1.1.0](https://github.com/desiboli/taffo.dev/compare/v1.0.2...v1.1.0) (2026-09-27)
 
 
