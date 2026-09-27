@@ -1,49 +1,282 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import {
+  IconBriefcase,
+  IconNews,
+  IconArrowUpRight,
+  IconQuote,
+  IconBookmark,
+  IconNotes,
+} from "@tabler/icons-astro"
+import { getCollection } from "astro:content"
+import FormattedDate from "@/components/FormattedDate.astro"
+import MainLayout from "@/layouts/main.astro"
+import { experience } from "@/data/experience"
+import { testimonials } from "@/data/testimonials"
+import { toBookmarkItem } from "@/data/bookmarks"
+import { toNoteItem } from "@/data/notes"
+import Header from "@/components/Header.astro"
+import SiteControls from "@/components/SiteControls.astro"
+import AskAiAside from "@/components/AskAiAside.astro"
+import { BookmarkLinksList } from "@/components/BookmarksExplorer"
+import { NotesList } from "@/components/NotesExplorer"
+import { ExperienceCurrentBadge } from "@/components/ExperienceCurrentBadge"
+import { ConnectButtons } from "@/components/ConnectMorphButton"
+import { Image } from "astro:assets"
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3)
+
+const featuredBookmarks = (
+  await getCollection("bookmarks", ({ data }) => !data.draft)
+)
+  .map((entry) => toBookmarkItem(entry.data))
+  .filter((item) => item.featured)
+
+const recentNotes = (await getCollection("notes", ({ data }) => !data.draft))
+  .map(toNoteItem)
+  .sort((a, b) => new Date(b.pubDate).valueOf() - new Date(a.pubDate).valueOf())
+  .slice(0, 3)
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your{' '}
-				<code>astro.config.mjs</code> file. You can customize your setup with{' '}
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to{' '}
-				<a href="https://docs.astro.build/">read the docs</a>{' '}
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out{' '}
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>{' '}
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<MainLayout>
+  <div class="page-grid content-start gap-y-1 pt-8 min-h-svh md:pt-14">
+    <div class="min-w-0 px-4 md:col-start-2 md:row-start-1 md:px-0">
+      <Header />
+    </div>
+
+    <SiteControls />
+    <AskAiAside />
+
+    <main class="min-w-0 self-start px-4 md:col-start-2 md:px-0">
+      <section id="intro" class="mt-20">
+        <div class="flex items-center gap-2">
+          <div class="relative size-16 shrink-0">
+            <Image
+              alt="Mustafa Alshammaa"
+              src="/m.webp"
+              width={64}
+              height={64}
+              class="rounded-full object-cover w-full h-full"
+              loading="eager"
+            />
+            <div
+              class="pointer-events-none absolute inset-0 rounded-full ring-2 ring-black/10 ring-inset dark:ring-white/10"
+            >
+            </div>
+          </div>
+          <div>
+            <h1 class="font-heading">Mustafa Alshammaa</h1>
+            <h2 class="text-sm text-muted-foreground">
+              Product-minded Software Engineer
+            </h2>
+          </div>
+        </div>
+
+        <div class="text-justify mt-10 space-y-4">
+          <p>
+            I'm a product-minded software engineer with 10+ years of experience
+            turning ideas into shipped products. My foundation is frontend
+            engineering, but my work spans the full product lifecycle — from
+            UX/UI and product thinking to architecture, implementation, and
+            delivery.
+          </p>
+          <p>
+            I'm most at home where engineering, design, and product overlap,
+            taking broad ownership rather than staying within a single
+            discipline. With AI-assisted workflows becoming a natural part of
+            how I work, that scope continues to grow — helping me move faster
+            from problem to production and focus on what ultimately matters:
+            building useful products.
+          </p>
+          <p>
+            Currently consulting through The Stellar Collective, on assignment
+            at Coop Sverige. Based in Stockholm. Studying AI Native Development.
+            Always curious about what's next.
+          </p>
+          <p>Want to talk? Let's connect.</p>
+        </div>
+
+        <ConnectButtons client:load />
+      </section>
+
+      <section id="experience" class="mt-20">
+        <h2
+          class="font-heading flex items-center gap-1 text-sm text-muted-foreground"
+        >
+          <IconBriefcase size={16} stroke={1.5} />
+          Experience
+        </h2>
+        <ul
+          class="group/list mt-4 divide-y -mx-2 divide-dashed divide-muted-foreground/50"
+        >
+          {
+            experience.map(
+              ({ title, company, href, period, current, currentKind }) => {
+                if (current && currentKind) {
+                  return (
+                    <li class="transition-[filter,opacity] duration-300 group-hover/list:not-[&:hover]:blur-[1px] group-hover/list:not-[&:hover]:opacity-50">
+                      <ExperienceCurrentBadge
+                        client:visible
+                        period={period}
+                        kind={currentKind}
+                        title={title}
+                        company={company}
+                        href={href}
+                      />
+                    </li>
+                  )
+                }
+
+                const Element = href ? "a" : "div"
+                return (
+                  <li class="transition-[filter,opacity] duration-300 group-hover/list:not-[&:hover]:blur-[1px] group-hover/list:not-[&:hover]:opacity-50">
+                    <Element
+                      {...(href ? { href, target: "_blank" } : {})}
+                      data-cuelume-hover="press"
+                      class="flex items-center gap-4 p-3 hover:bg-muted transition-colors"
+                    >
+                      <h3 class="min-w-0 flex-1">
+                        {title}{" "}
+                        <span class="text-muted-foreground text-xs">
+                          @ {company}
+                        </span>
+                      </h3>
+                      <p class="shrink-0 text-sm text-muted-foreground">
+                        {period}
+                      </p>
+                    </Element>
+                  </li>
+                )
+              },
+            )
+          }
+        </ul>
+        <!-- <div class="mt-4 flex justify-center">
+          <a
+            href="/blog"
+            data-cuelume-hover="tick"
+            class="text-sm uppercase text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
+          >
+            Curriculum Vitae
+            <IconArrowUpRight size={16} stroke={1.5} />
+          </a>
+        </div> -->
+      </section>
+
+      <section id="writing" class="mt-20">
+        <h2
+          class="font-heading flex items-center gap-1 text-sm text-muted-foreground"
+        >
+          <IconNews size={16} stroke={1.5} />
+          Writing
+        </h2>
+        <ul
+          class="group/list mt-4 divide-y -mx-2 divide-dashed divide-muted-foreground/50"
+        >
+          {
+            posts.map((post) => (
+              <li class="transition-[filter,opacity] duration-300 group-hover/list:not-[&:hover]:blur-[1px] group-hover/list:not-[&:hover]:opacity-50">
+                <a
+                  href={`/blog/${post.id}/`}
+                  data-cuelume-hover="press"
+                  class="flex items-center justify-between gap-4 p-3 hover:bg-muted transition-colors"
+                >
+                  <h3>{post.data.title}</h3>
+                  <p class="shrink-0 text-sm text-muted-foreground">
+                    <FormattedDate date={post.data.pubDate} />
+                  </p>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="mt-4 flex justify-center">
+          <a
+            href="/blog"
+            class="text-sm uppercase text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
+            data-cuelume-hover="tick"
+          >
+            Read all
+            <IconArrowUpRight size={16} stroke={1.5} />
+          </a>
+        </div>
+      </section>
+
+      {
+        featuredBookmarks.length > 0 && (
+          <section id="bookmarks" class="mt-20">
+            <h2 class="font-heading flex items-center gap-1 text-sm text-muted-foreground">
+              <IconBookmark size={16} stroke={1.5} />
+              Bookmarks
+            </h2>
+            <BookmarkLinksList client:visible items={featuredBookmarks} />
+            <div class="mt-4 flex justify-center">
+              <a
+                href="/bookmarks"
+                data-cuelume-hover="tick"
+                class="text-sm uppercase text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
+              >
+                View all
+                <IconArrowUpRight size={16} stroke={1.5} />
+              </a>
+            </div>
+          </section>
+        )
+      }
+
+      {
+        recentNotes.length > 0 && (
+          <section id="notes" class="mt-20">
+            <h2 class="font-heading flex items-center gap-1 text-sm text-muted-foreground">
+              <IconNotes size={16} stroke={1.5} />
+              Notes
+            </h2>
+            <NotesList client:visible items={recentNotes} sortItems={false} />
+            <div class="mt-4 flex justify-center">
+              <a
+                href="/notes"
+                data-cuelume-hover="tick"
+                class="text-sm uppercase text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
+              >
+                Browse all
+                <IconArrowUpRight size={16} stroke={1.5} />
+              </a>
+            </div>
+          </section>
+        )
+      }
+
+      <section id="testimonials" class="mt-20">
+        <h2
+          class="font-heading flex items-center gap-1 text-sm text-muted-foreground"
+        >
+          <IconQuote size={16} stroke={1.5} />
+          What people say about me
+        </h2>
+        <ul
+          class="group/list mt-4 divide-y -mx-2 divide-dashed divide-muted-foreground/50 grid grid-cols-1 md:grid-cols-2 gap-4"
+        >
+          {
+            testimonials.map(({ quote, name, role }) => (
+              <li
+                data-cuelume-hover="whisper"
+                class="transition-[filter,opacity] duration-300 group-hover/list:not-[&:hover]:blur-[1px] group-hover/list:not-[&:hover]:opacity-50 border border-dashed border-muted-foreground/50 rounded-md p-4 flex flex-col gap-4 cursor-default"
+              >
+                <blockquote class="text-balance flex-1 text-muted-foreground">
+                  <p>"{quote}"</p>
+                </blockquote>
+                <footer>
+                  <p class="flex flex-col">
+                    <span class="text-sm">{name}</span>
+                    <span class="text-xs text-muted-foreground">{role}</span>
+                  </p>
+                </footer>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+  </div>
+</MainLayout>
