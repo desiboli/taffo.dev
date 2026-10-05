@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/desiboli/taffo.dev/compare/v1.3.0...v1.3.1) (2026-10-05)
+
+
+### Bug Fixes
+
+* prevent command menu page scroll on mobile keyboard ([81d0faa](https://github.com/desiboli/taffo.dev/commit/81d0faa1b1f9a2bf6fd762c49735c33cf36d5b17))
+
 ## [1.3.0](https://github.com/desiboli/taffo.dev/compare/v1.2.1...v1.3.0) (2026-09-27)
 
 
