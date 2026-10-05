@@ -88,6 +88,102 @@ export function CommandMenu() {
     return () => document.removeEventListener("keydown", down)
   }, [])
 
+  // Mobile/keyboard: keep page scroll pinned and constrain the open dialog to the
+  // visual viewport. iOS scrolls the document when the search input focuses.
+  React.useEffect(() => {
+    if (!open) return
+
+    const scrollX = window.scrollX
+    const scrollY = window.scrollY
+
+    const pinScroll = () => {
+      if (window.scrollX !== scrollX || window.scrollY !== scrollY) {
+        window.scrollTo(scrollX, scrollY)
+      }
+    }
+
+    const syncVisualViewport = () => {
+      const vv = window.visualViewport
+      const popup = document.querySelector<HTMLElement>(
+        '[data-slot="dialog-content"]',
+      )
+      const list = document.querySelector<HTMLElement>(
+        '[data-slot="command-list"]',
+      )
+
+      if (vv && popup) {
+        const top = vv.offsetTop + 12
+        const maxHeight = Math.max(160, vv.height - 24)
+        popup.style.top = `${top}px`
+        popup.style.transform = "translateX(-50%)"
+        popup.style.maxHeight = `${maxHeight}px`
+      }
+
+      if (list) {
+        list.style.overscrollBehavior = "contain"
+        list.style.touchAction = "pan-y"
+      }
+
+      pinScroll()
+    }
+
+    const isScrollable = (el: HTMLElement) => {
+      const { overflowY } = window.getComputedStyle(el)
+      return (
+        (overflowY === "auto" || overflowY === "scroll") &&
+        el.scrollHeight > el.clientHeight + 1
+      )
+    }
+
+    const onTouchMove = (event: TouchEvent) => {
+      const target = event.target
+      if (!(target instanceof Element)) {
+        event.preventDefault()
+        return
+      }
+
+      let node: HTMLElement | null =
+        target instanceof HTMLElement ? target : target.parentElement
+
+      while (node) {
+        if (node.dataset.slot === "dialog-content") break
+        if (isScrollable(node)) return
+        node = node.parentElement
+      }
+
+      event.preventDefault()
+    }
+
+    // Wait a frame so the dialog portal is mounted.
+    const frame = window.requestAnimationFrame(syncVisualViewport)
+
+    const vv = window.visualViewport
+    vv?.addEventListener("resize", syncVisualViewport)
+    vv?.addEventListener("scroll", syncVisualViewport)
+    window.addEventListener("scroll", pinScroll, true)
+    document.addEventListener("touchmove", onTouchMove, { passive: false })
+
+    return () => {
+      window.cancelAnimationFrame(frame)
+      vv?.removeEventListener("resize", syncVisualViewport)
+      vv?.removeEventListener("scroll", syncVisualViewport)
+      window.removeEventListener("scroll", pinScroll, true)
+      document.removeEventListener("touchmove", onTouchMove)
+
+      const popup = document.querySelector<HTMLElement>(
+        '[data-slot="dialog-content"]',
+      )
+      const list = document.querySelector<HTMLElement>(
+        '[data-slot="command-list"]',
+      )
+      popup?.style.removeProperty("top")
+      popup?.style.removeProperty("transform")
+      popup?.style.removeProperty("max-height")
+      list?.style.removeProperty("overscroll-behavior")
+      list?.style.removeProperty("touch-action")
+    }
+  }, [open])
+
   function runCommand(command: () => void) {
     setMenuOpen(false)
     command()
